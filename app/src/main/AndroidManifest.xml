@@ -11,6 +11,25 @@
             android:name="org.ieee.ieeehub.provider.IEEEHubProvider"
             android:authorities="org.ieee.ieeehub.provider"
             android:exported="false" />
+        <service
+            android:name=".sync.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+        <service
+            android:name=".sync.SyncService"
+            android:exported="true"
+            android:process=":sync">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter" />
+        </service>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
