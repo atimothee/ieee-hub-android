@@ -1,6 +1,6 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/conference_list"
-    android:name="org.ieee.ieeehub.ConferenceListFragment" android:layout_width="match_parent"
+    android:name="org.ieee.ieeehub.fragment.ConferenceListFragment" android:layout_width="match_parent"
     android:layout_height="match_parent" android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp" tools:context="org.ieee.ieeehub.ConferenceListActivity"
     tools:layout="@android:layout/list_content" />

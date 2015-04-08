@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import org.ieee.ieeehub.fragment.ConferenceDetailFragment;
+import org.ieee.ieeehub.fragment.ConferenceListFragment;
+
 
 /**
  * An activity representing a list of Conferences. This activity
@@ -14,11 +17,11 @@ import android.support.v4.app.FragmentActivity;
  * item details side-by-side using two vertical panes.
  * <p/>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link ConferenceListFragment} and the item details
- * (if present) is a {@link ConferenceDetailFragment}.
+ * {@link org.ieee.ieeehub.fragment.ConferenceListFragment} and the item details
+ * (if present) is a {@link org.ieee.ieeehub.fragment.ConferenceDetailFragment}.
  * <p/>
  * This activity also implements the required
- * {@link ConferenceListFragment.Callbacks} interface
+ * {@link org.ieee.ieeehub.fragment.ConferenceListFragment.Callbacks} interface
  * to listen for item selections.
  */
 public class ConferenceListActivity extends FragmentActivity

@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import org.ieee.ieeehub.fragment.ConferenceDetailFragment;
+
 
 /**
  * An activity representing a single Conference detail screen. This
@@ -14,7 +16,7 @@ import android.view.MenuItem;
  * in a {@link ConferenceListActivity}.
  * <p/>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link ConferenceDetailFragment}.
+ * more than a {@link org.ieee.ieeehub.fragment.ConferenceDetailFragment}.
  */
 public class ConferenceDetailActivity extends ActionBarActivity {
 

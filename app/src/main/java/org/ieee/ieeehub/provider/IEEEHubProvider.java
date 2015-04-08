@@ -17,6 +17,7 @@ import org.ieee.ieeehub.provider.articleimage.ArticleImageColumns;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
+import org.ieee.ieeehub.provider.conferencetag.ConferenceTagColumns;
 
 public class IEEEHubProvider extends BaseContentProvider {
     private static final String TAG = IEEEHubProvider.class.getSimpleName();
@@ -44,6 +45,9 @@ public class IEEEHubProvider extends BaseContentProvider {
     private static final int URI_TYPE_CONFERENCE_SPONSOR = 8;
     private static final int URI_TYPE_CONFERENCE_SPONSOR_ID = 9;
 
+    private static final int URI_TYPE_CONFERENCE_TAG = 10;
+    private static final int URI_TYPE_CONFERENCE_TAG_ID = 11;
+
 
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
@@ -59,6 +63,8 @@ public class IEEEHubProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, ConferenceColumns.TABLE_NAME + "/#", URI_TYPE_CONFERENCE_ID);
         URI_MATCHER.addURI(AUTHORITY, ConferenceSponsorColumns.TABLE_NAME, URI_TYPE_CONFERENCE_SPONSOR);
         URI_MATCHER.addURI(AUTHORITY, ConferenceSponsorColumns.TABLE_NAME + "/#", URI_TYPE_CONFERENCE_SPONSOR_ID);
+        URI_MATCHER.addURI(AUTHORITY, ConferenceTagColumns.TABLE_NAME, URI_TYPE_CONFERENCE_TAG);
+        URI_MATCHER.addURI(AUTHORITY, ConferenceTagColumns.TABLE_NAME + "/#", URI_TYPE_CONFERENCE_TAG_ID);
     }
 
     @Override
@@ -99,6 +105,11 @@ public class IEEEHubProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + ConferenceSponsorColumns.TABLE_NAME;
             case URI_TYPE_CONFERENCE_SPONSOR_ID:
                 return TYPE_CURSOR_ITEM + ConferenceSponsorColumns.TABLE_NAME;
+
+            case URI_TYPE_CONFERENCE_TAG:
+                return TYPE_CURSOR_DIR + ConferenceTagColumns.TABLE_NAME;
+            case URI_TYPE_CONFERENCE_TAG_ID:
+                return TYPE_CURSOR_ITEM + ConferenceTagColumns.TABLE_NAME;
 
         }
         return null;
@@ -191,6 +202,17 @@ public class IEEEHubProvider extends BaseContentProvider {
                 res.orderBy = ConferenceSponsorColumns.DEFAULT_ORDER;
                 break;
 
+            case URI_TYPE_CONFERENCE_TAG:
+            case URI_TYPE_CONFERENCE_TAG_ID:
+                res.table = ConferenceTagColumns.TABLE_NAME;
+                res.idColumn = ConferenceTagColumns._ID;
+                res.tablesWithJoins = ConferenceTagColumns.TABLE_NAME;
+                if (ConferenceColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + ConferenceColumns.TABLE_NAME + " AS " + ConferenceTagColumns.PREFIX_CONFERENCE + " ON " + ConferenceTagColumns.TABLE_NAME + "." + ConferenceTagColumns.CONFERENCE_ID + "=" + ConferenceTagColumns.PREFIX_CONFERENCE + "." + ConferenceColumns._ID;
+                }
+                res.orderBy = ConferenceTagColumns.DEFAULT_ORDER;
+                break;
+
             default:
                 throw new IllegalArgumentException("The uri '" + uri + "' is not supported by this ContentProvider");
         }
@@ -201,6 +223,7 @@ public class IEEEHubProvider extends BaseContentProvider {
             case URI_TYPE_CATEGORY_ID:
             case URI_TYPE_CONFERENCE_ID:
             case URI_TYPE_CONFERENCE_SPONSOR_ID:
+            case URI_TYPE_CONFERENCE_TAG_ID:
                 id = uri.getLastPathSegment();
         }
         if (id != null) {

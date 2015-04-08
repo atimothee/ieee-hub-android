@@ -9,6 +9,7 @@ import org.ieee.ieeehub.provider.articleimage.ArticleImageColumns;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
+import org.ieee.ieeehub.provider.conferencetag.ConferenceTagColumns;
 
 /**
  * Columns for the {@code article} table.

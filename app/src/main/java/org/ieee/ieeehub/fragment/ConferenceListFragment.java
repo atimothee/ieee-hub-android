@@ -1,14 +1,20 @@
-package org.ieee.ieeehub;
+package org.ieee.ieeehub.fragment;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 
+import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
+import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 
 /**
  * A list fragment representing a list of Conferences. This fragment
@@ -19,7 +25,8 @@ import org.ieee.ieeehub.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class ConferenceListFragment extends ListFragment {
+public class ConferenceListFragment extends ListFragment implements LoaderManager.LoaderCallbacks {
+    private SimpleCursorAdapter mAdapter;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -37,6 +44,25 @@ public class ConferenceListFragment extends ListFragment {
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
+
+    private String[] COLUMNS = {ConferenceColumns.TITLE, ConferenceColumns.LOCATION, ConferenceColumns.DISPLAY_DATE, ConferenceColumns.DESCRIPTION};
+    private int[] VIEW_IDS = {R.id.conference_item_title, R.id.conference_item_location, R.id.conference_item_date,
+            R.id.conference_item_description};
+
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), ConferenceColumns.CONTENT_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader loader, Object data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+
+    }
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -71,12 +97,8 @@ public class ConferenceListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conference_list_item, null, COLUMNS, VIEW_IDS, 0);
+        setListAdapter(mAdapter);
     }
 
     @Override

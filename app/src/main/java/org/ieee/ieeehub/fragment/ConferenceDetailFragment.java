@@ -1,4 +1,4 @@
-package org.ieee.ieeehub;
+package org.ieee.ieeehub.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
 
 /**
  * A fragment representing a single Conference detail screen.
- * This fragment is either contained in a {@link ConferenceListActivity}
- * in two-pane mode (on tablets) or a {@link ConferenceDetailActivity}
+ * This fragment is either contained in a {@link org.ieee.ieeehub.ConferenceListActivity}
+ * in two-pane mode (on tablets) or a {@link org.ieee.ieeehub.ConferenceDetailActivity}
  * on handsets.
  */
 public class ConferenceDetailFragment extends Fragment {

@@ -1,6 +1,10 @@
-package org.ieee.ieeehub;
+package org.ieee.ieeehub.fragment;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 
+import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
+import org.ieee.ieeehub.provider.article.ArticleColumns;
 
 /**
  * A fragment representing a list of Items.
@@ -24,7 +30,7 @@ import org.ieee.ieeehub.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ArticleFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class ArticleFragment extends Fragment implements AbsListView.OnItemClickListener, LoaderManager.LoaderCallbacks {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +40,9 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String[] COLUMNS = {ArticleColumns.TITLE, ArticleColumns.IMAGE};
+    private int[] VIEW_IDS = {R.id.article_item_title, R.id.article_item_image};
 
     private OnFragmentInteractionListener mListener;
 
@@ -46,7 +55,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private SimpleCursorAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
     public static ArticleFragment newInstance(String param1, String param2) {
@@ -66,6 +75,12 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -74,9 +89,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.article_item, null, COLUMNS, VIEW_IDS, 0);
     }
 
     @Override
@@ -132,6 +145,21 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
         }
+    }
+
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), ArticleColumns.CONTENT_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader loader, Object data) {
+        mAdapter.swapCursor((Cursor) data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+
     }
 
     /**
