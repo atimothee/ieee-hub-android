@@ -1,6 +1,7 @@
 package org.ieee.ieeehub;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ieee.ieeehub.fragment.NavigationDrawerFragment;
+import org.ieee.ieeehub.helper.AccountHelper;
+import org.ieee.ieeehub.provider.IEEEHubProvider;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
@@ -111,6 +114,11 @@ public class MainActivity extends MaterialNavigationDrawer
         setDrawerHeaderImage(getResources().getDrawable(R.drawable.header));
         addSection(section1);
         //addSection(section1);
+        Bundle bundle1 = new Bundle();
+        bundle1.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        bundle1.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        AccountHelper accountHelper = new AccountHelper(this);
+        ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
     }
 
     /**

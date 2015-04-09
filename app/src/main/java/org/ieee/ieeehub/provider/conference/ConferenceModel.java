@@ -55,11 +55,11 @@ public interface ConferenceModel extends BaseModel {
     String getContact();
 
     /**
-     * Get the {@code call} value.
+     * Get the {@code call_url} value.
      * Can be {@code null}.
      */
     @Nullable
-    String getCall();
+    String getCallUrl();
 
     /**
      * Get the {@code location} value.
@@ -95,4 +95,11 @@ public interface ConferenceModel extends BaseModel {
      */
     @Nullable
     String getRegion();
+
+    /**
+     * Get the {@code website} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    String getWebsite();
 }

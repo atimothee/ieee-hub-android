@@ -17,7 +17,7 @@ public interface ConferenceSponsorModel extends BaseModel {
      * Can be {@code null}.
      */
     @Nullable
-    Integer getConferenceId();
+    Long getConferenceId();
 
     /**
      * Get the {@code name} value.

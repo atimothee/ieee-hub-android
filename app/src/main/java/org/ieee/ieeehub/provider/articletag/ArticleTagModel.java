@@ -1,4 +1,4 @@
-package org.ieee.ieeehub.provider.articleimage;
+package org.ieee.ieeehub.provider.articletag;
 
 import org.ieee.ieeehub.provider.base.BaseModel;
 
@@ -8,9 +8,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * Data model for the {@code article_image} table.
+ * Data model for the {@code article_tag} table.
  */
-public interface ArticleImageModel extends BaseModel {
+public interface ArticleTagModel extends BaseModel {
 
     /**
      * Get the {@code article_id} value.
@@ -20,9 +20,9 @@ public interface ArticleImageModel extends BaseModel {
     Long getArticleId();
 
     /**
-     * Get the {@code url} value.
+     * Get the {@code name} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    String getUrl();
+    String getName();
 }

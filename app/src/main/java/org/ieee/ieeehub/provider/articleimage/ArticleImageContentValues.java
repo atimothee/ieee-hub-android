@@ -28,7 +28,7 @@ public class ArticleImageContentValues extends AbstractContentValues {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
     }
 
-    public ArticleImageContentValues putArticleId(@Nullable Integer value) {
+    public ArticleImageContentValues putArticleId(@Nullable Long value) {
         mContentValues.put(ArticleImageColumns.ARTICLE_ID, value);
         return this;
     }

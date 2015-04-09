@@ -89,12 +89,12 @@ public class ConferenceCursor extends AbstractCursor implements ConferenceModel 
     }
 
     /**
-     * Get the {@code call} value.
+     * Get the {@code call_url} value.
      * Can be {@code null}.
      */
     @Nullable
-    public String getCall() {
-        String res = getStringOrNull(ConferenceColumns.CALL);
+    public String getCallUrl() {
+        String res = getStringOrNull(ConferenceColumns.CALL_URL);
         return res;
     }
 
@@ -145,6 +145,16 @@ public class ConferenceCursor extends AbstractCursor implements ConferenceModel 
     @Nullable
     public String getRegion() {
         String res = getStringOrNull(ConferenceColumns.REGION);
+        return res;
+    }
+
+    /**
+     * Get the {@code website} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    public String getWebsite() {
+        String res = getStringOrNull(ConferenceColumns.WEBSITE);
         return res;
     }
 }

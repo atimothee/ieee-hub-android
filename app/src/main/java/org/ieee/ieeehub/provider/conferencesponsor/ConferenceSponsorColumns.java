@@ -6,10 +6,10 @@ import android.provider.BaseColumns;
 import org.ieee.ieeehub.provider.IEEEHubProvider;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
 import org.ieee.ieeehub.provider.articleimage.ArticleImageColumns;
+import org.ieee.ieeehub.provider.articletag.ArticleTagColumns;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
-import org.ieee.ieeehub.provider.conferencetag.ConferenceTagColumns;
 
 /**
  * Columns for the {@code conference_sponsor} table.

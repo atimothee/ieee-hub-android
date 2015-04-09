@@ -28,7 +28,7 @@ public class ConferenceSponsorContentValues extends AbstractContentValues {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
     }
 
-    public ConferenceSponsorContentValues putConferenceId(@Nullable Integer value) {
+    public ConferenceSponsorContentValues putConferenceId(@Nullable Long value) {
         mContentValues.put(ConferenceSponsorColumns.CONFERENCE_ID, value);
         return this;
     }

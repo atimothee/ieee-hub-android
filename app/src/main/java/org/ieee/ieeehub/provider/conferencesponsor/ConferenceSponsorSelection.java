@@ -53,32 +53,32 @@ public class ConferenceSponsorSelection extends AbstractSelection<ConferenceSpon
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceId(Integer... value) {
+    public ConferenceSponsorSelection conferenceId(Long... value) {
         addEquals(ConferenceSponsorColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceIdNot(Integer... value) {
+    public ConferenceSponsorSelection conferenceIdNot(Long... value) {
         addNotEquals(ConferenceSponsorColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceIdGt(int value) {
+    public ConferenceSponsorSelection conferenceIdGt(long value) {
         addGreaterThan(ConferenceSponsorColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceIdGtEq(int value) {
+    public ConferenceSponsorSelection conferenceIdGtEq(long value) {
         addGreaterThanOrEquals(ConferenceSponsorColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceIdLt(int value) {
+    public ConferenceSponsorSelection conferenceIdLt(long value) {
         addLessThan(ConferenceSponsorColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceIdLtEq(int value) {
+    public ConferenceSponsorSelection conferenceIdLtEq(long value) {
         addLessThanOrEquals(ConferenceSponsorColumns.CONFERENCE_ID, value);
         return this;
     }
@@ -273,33 +273,33 @@ public class ConferenceSponsorSelection extends AbstractSelection<ConferenceSpon
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceCall(String... value) {
-        addEquals(ConferenceColumns.CALL, value);
+    public ConferenceSponsorSelection conferenceCallUrl(String... value) {
+        addEquals(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceCallNot(String... value) {
-        addNotEquals(ConferenceColumns.CALL, value);
+    public ConferenceSponsorSelection conferenceCallUrlNot(String... value) {
+        addNotEquals(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceCallLike(String... value) {
-        addLike(ConferenceColumns.CALL, value);
+    public ConferenceSponsorSelection conferenceCallUrlLike(String... value) {
+        addLike(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceCallContains(String... value) {
-        addContains(ConferenceColumns.CALL, value);
+    public ConferenceSponsorSelection conferenceCallUrlContains(String... value) {
+        addContains(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceCallStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.CALL, value);
+    public ConferenceSponsorSelection conferenceCallUrlStartsWith(String... value) {
+        addStartsWith(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSponsorSelection conferenceCallEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.CALL, value);
+    public ConferenceSponsorSelection conferenceCallUrlEndsWith(String... value) {
+        addEndsWith(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
@@ -450,6 +450,36 @@ public class ConferenceSponsorSelection extends AbstractSelection<ConferenceSpon
 
     public ConferenceSponsorSelection conferenceRegionEndsWith(String... value) {
         addEndsWith(ConferenceColumns.REGION, value);
+        return this;
+    }
+
+    public ConferenceSponsorSelection conferenceWebsite(String... value) {
+        addEquals(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSponsorSelection conferenceWebsiteNot(String... value) {
+        addNotEquals(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSponsorSelection conferenceWebsiteLike(String... value) {
+        addLike(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSponsorSelection conferenceWebsiteContains(String... value) {
+        addContains(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSponsorSelection conferenceWebsiteStartsWith(String... value) {
+        addStartsWith(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSponsorSelection conferenceWebsiteEndsWith(String... value) {
+        addEndsWith(ConferenceColumns.WEBSITE, value);
         return this;
     }
 

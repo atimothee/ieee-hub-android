@@ -32,8 +32,8 @@ public class ConferenceSponsorCursor extends AbstractCursor implements Conferenc
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getConferenceId() {
-        Integer res = getIntegerOrNull(ConferenceSponsorColumns.CONFERENCE_ID);
+    public Long getConferenceId() {
+        Long res = getLongOrNull(ConferenceSponsorColumns.CONFERENCE_ID);
         return res;
     }
 
@@ -98,12 +98,12 @@ public class ConferenceSponsorCursor extends AbstractCursor implements Conferenc
     }
 
     /**
-     * Get the {@code call} value.
+     * Get the {@code call_url} value.
      * Can be {@code null}.
      */
     @Nullable
-    public String getConferenceCall() {
-        String res = getStringOrNull(ConferenceColumns.CALL);
+    public String getConferenceCallUrl() {
+        String res = getStringOrNull(ConferenceColumns.CALL_URL);
         return res;
     }
 
@@ -154,6 +154,16 @@ public class ConferenceSponsorCursor extends AbstractCursor implements Conferenc
     @Nullable
     public String getConferenceRegion() {
         String res = getStringOrNull(ConferenceColumns.REGION);
+        return res;
+    }
+
+    /**
+     * Get the {@code website} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    public String getConferenceWebsite() {
+        String res = getStringOrNull(ConferenceColumns.WEBSITE);
         return res;
     }
 

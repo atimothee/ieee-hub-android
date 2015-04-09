@@ -242,33 +242,33 @@ public class ConferenceSelection extends AbstractSelection<ConferenceSelection> 
         return this;
     }
 
-    public ConferenceSelection call(String... value) {
-        addEquals(ConferenceColumns.CALL, value);
+    public ConferenceSelection callUrl(String... value) {
+        addEquals(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSelection callNot(String... value) {
-        addNotEquals(ConferenceColumns.CALL, value);
+    public ConferenceSelection callUrlNot(String... value) {
+        addNotEquals(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSelection callLike(String... value) {
-        addLike(ConferenceColumns.CALL, value);
+    public ConferenceSelection callUrlLike(String... value) {
+        addLike(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSelection callContains(String... value) {
-        addContains(ConferenceColumns.CALL, value);
+    public ConferenceSelection callUrlContains(String... value) {
+        addContains(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSelection callStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.CALL, value);
+    public ConferenceSelection callUrlStartsWith(String... value) {
+        addStartsWith(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceSelection callEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.CALL, value);
+    public ConferenceSelection callUrlEndsWith(String... value) {
+        addEndsWith(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
@@ -419,6 +419,36 @@ public class ConferenceSelection extends AbstractSelection<ConferenceSelection> 
 
     public ConferenceSelection regionEndsWith(String... value) {
         addEndsWith(ConferenceColumns.REGION, value);
+        return this;
+    }
+
+    public ConferenceSelection website(String... value) {
+        addEquals(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSelection websiteNot(String... value) {
+        addNotEquals(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSelection websiteLike(String... value) {
+        addLike(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSelection websiteContains(String... value) {
+        addContains(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSelection websiteStartsWith(String... value) {
+        addStartsWith(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceSelection websiteEndsWith(String... value) {
+        addEndsWith(ConferenceColumns.WEBSITE, value);
         return this;
     }
 }

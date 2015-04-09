@@ -6,10 +6,10 @@ import android.provider.BaseColumns;
 import org.ieee.ieeehub.provider.IEEEHubProvider;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
 import org.ieee.ieeehub.provider.articleimage.ArticleImageColumns;
+import org.ieee.ieeehub.provider.articletag.ArticleTagColumns;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
-import org.ieee.ieeehub.provider.conferencetag.ConferenceTagColumns;
 
 /**
  * Columns for the {@code conference} table.
@@ -35,7 +35,7 @@ public class ConferenceColumns implements BaseColumns {
 
     public static final String CONTACT = "contact";
 
-    public static final String CALL = "call";
+    public static final String CALL_URL = "call_url";
 
     public static final String LOCATION = "location";
 
@@ -46,6 +46,8 @@ public class ConferenceColumns implements BaseColumns {
     public static final String ATTENDANCE = "attendance";
 
     public static final String REGION = "region";
+
+    public static final String WEBSITE = "website";
 
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
@@ -59,12 +61,13 @@ public class ConferenceColumns implements BaseColumns {
             END_DATE,
             DISPLAY_DATE,
             CONTACT,
-            CALL,
+            CALL_URL,
             LOCATION,
             LINK,
             NUMBER,
             ATTENDANCE,
-            REGION
+            REGION,
+            WEBSITE
     };
     // @formatter:on
 
@@ -77,12 +80,13 @@ public class ConferenceColumns implements BaseColumns {
             if (c.equals(END_DATE) || c.contains("." + END_DATE)) return true;
             if (c.equals(DISPLAY_DATE) || c.contains("." + DISPLAY_DATE)) return true;
             if (c.equals(CONTACT) || c.contains("." + CONTACT)) return true;
-            if (c.equals(CALL) || c.contains("." + CALL)) return true;
+            if (c.equals(CALL_URL) || c.contains("." + CALL_URL)) return true;
             if (c.equals(LOCATION) || c.contains("." + LOCATION)) return true;
             if (c.equals(LINK) || c.contains("." + LINK)) return true;
             if (c.equals(NUMBER) || c.contains("." + NUMBER)) return true;
             if (c.equals(ATTENDANCE) || c.contains("." + ATTENDANCE)) return true;
             if (c.equals(REGION) || c.contains("." + REGION)) return true;
+            if (c.equals(WEBSITE) || c.contains("." + WEBSITE)) return true;
         }
         return false;
     }

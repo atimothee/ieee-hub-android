@@ -6,10 +6,10 @@ import android.provider.BaseColumns;
 import org.ieee.ieeehub.provider.IEEEHubProvider;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
 import org.ieee.ieeehub.provider.articleimage.ArticleImageColumns;
+import org.ieee.ieeehub.provider.articletag.ArticleTagColumns;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
-import org.ieee.ieeehub.provider.conferencetag.ConferenceTagColumns;
 
 /**
  * Columns for the {@code category} table.
@@ -23,7 +23,7 @@ public class CategoryColumns implements BaseColumns {
      */
     public static final String _ID = BaseColumns._ID;
 
-    public static final String NAME = "name";
+    public static final String NAME = "category__name";
 
     public static final String LINK = "category__link";
 

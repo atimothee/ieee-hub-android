@@ -22,11 +22,11 @@ public class AccountHelper {
         this.accountType = mContext.getString(R.string.account_type);
     }
 
-    public Account CreateSyncAccount(Context context) {
+    public Account CreateSyncAccount() {
         Account newAccount = new Account(
                 accountName, accountType);
         AccountManager accountManager =
-                (AccountManager) context.getSystemService(
+                (AccountManager) mContext.getSystemService(
                         mContext.ACCOUNT_SERVICE);
 
         if (accountManager.addAccountExplicitly(newAccount, null, null)) {

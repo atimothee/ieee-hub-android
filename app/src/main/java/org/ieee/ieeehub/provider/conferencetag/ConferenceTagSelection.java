@@ -53,32 +53,32 @@ public class ConferenceTagSelection extends AbstractSelection<ConferenceTagSelec
         return this;
     }
 
-    public ConferenceTagSelection conferenceId(Integer... value) {
+    public ConferenceTagSelection conferenceId(Long... value) {
         addEquals(ConferenceTagColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceIdNot(Integer... value) {
+    public ConferenceTagSelection conferenceIdNot(Long... value) {
         addNotEquals(ConferenceTagColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceIdGt(int value) {
+    public ConferenceTagSelection conferenceIdGt(long value) {
         addGreaterThan(ConferenceTagColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceIdGtEq(int value) {
+    public ConferenceTagSelection conferenceIdGtEq(long value) {
         addGreaterThanOrEquals(ConferenceTagColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceIdLt(int value) {
+    public ConferenceTagSelection conferenceIdLt(long value) {
         addLessThan(ConferenceTagColumns.CONFERENCE_ID, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceIdLtEq(int value) {
+    public ConferenceTagSelection conferenceIdLtEq(long value) {
         addLessThanOrEquals(ConferenceTagColumns.CONFERENCE_ID, value);
         return this;
     }
@@ -273,33 +273,33 @@ public class ConferenceTagSelection extends AbstractSelection<ConferenceTagSelec
         return this;
     }
 
-    public ConferenceTagSelection conferenceCall(String... value) {
-        addEquals(ConferenceColumns.CALL, value);
+    public ConferenceTagSelection conferenceCallUrl(String... value) {
+        addEquals(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceCallNot(String... value) {
-        addNotEquals(ConferenceColumns.CALL, value);
+    public ConferenceTagSelection conferenceCallUrlNot(String... value) {
+        addNotEquals(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceCallLike(String... value) {
-        addLike(ConferenceColumns.CALL, value);
+    public ConferenceTagSelection conferenceCallUrlLike(String... value) {
+        addLike(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceCallContains(String... value) {
-        addContains(ConferenceColumns.CALL, value);
+    public ConferenceTagSelection conferenceCallUrlContains(String... value) {
+        addContains(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceCallStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.CALL, value);
+    public ConferenceTagSelection conferenceCallUrlStartsWith(String... value) {
+        addStartsWith(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceTagSelection conferenceCallEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.CALL, value);
+    public ConferenceTagSelection conferenceCallUrlEndsWith(String... value) {
+        addEndsWith(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
@@ -450,6 +450,36 @@ public class ConferenceTagSelection extends AbstractSelection<ConferenceTagSelec
 
     public ConferenceTagSelection conferenceRegionEndsWith(String... value) {
         addEndsWith(ConferenceColumns.REGION, value);
+        return this;
+    }
+
+    public ConferenceTagSelection conferenceWebsite(String... value) {
+        addEquals(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceTagSelection conferenceWebsiteNot(String... value) {
+        addNotEquals(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceTagSelection conferenceWebsiteLike(String... value) {
+        addLike(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceTagSelection conferenceWebsiteContains(String... value) {
+        addContains(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceTagSelection conferenceWebsiteStartsWith(String... value) {
+        addStartsWith(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceTagSelection conferenceWebsiteEndsWith(String... value) {
+        addEndsWith(ConferenceColumns.WEBSITE, value);
         return this;
     }
 

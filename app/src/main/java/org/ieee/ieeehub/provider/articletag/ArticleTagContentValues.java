@@ -1,4 +1,4 @@
-package org.ieee.ieeehub.provider.conferencetag;
+package org.ieee.ieeehub.provider.articletag;
 
 import java.util.Date;
 
@@ -10,12 +10,12 @@ import android.support.annotation.Nullable;
 import org.ieee.ieeehub.provider.base.AbstractContentValues;
 
 /**
- * Content values wrapper for the {@code conference_tag} table.
+ * Content values wrapper for the {@code article_tag} table.
  */
-public class ConferenceTagContentValues extends AbstractContentValues {
+public class ArticleTagContentValues extends AbstractContentValues {
     @Override
     public Uri uri() {
-        return ConferenceTagColumns.CONTENT_URI;
+        return ArticleTagColumns.CONTENT_URI;
     }
 
     /**
@@ -24,23 +24,23 @@ public class ConferenceTagContentValues extends AbstractContentValues {
      * @param contentResolver The content resolver to use.
      * @param where The selection to use (can be {@code null}).
      */
-    public int update(ContentResolver contentResolver, @Nullable ConferenceTagSelection where) {
+    public int update(ContentResolver contentResolver, @Nullable ArticleTagSelection where) {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
     }
 
-    public ConferenceTagContentValues putConferenceId(@Nullable Long value) {
-        mContentValues.put(ConferenceTagColumns.CONFERENCE_ID, value);
+    public ArticleTagContentValues putArticleId(@Nullable Long value) {
+        mContentValues.put(ArticleTagColumns.ARTICLE_ID, value);
         return this;
     }
 
-    public ConferenceTagContentValues putConferenceIdNull() {
-        mContentValues.putNull(ConferenceTagColumns.CONFERENCE_ID);
+    public ArticleTagContentValues putArticleIdNull() {
+        mContentValues.putNull(ArticleTagColumns.ARTICLE_ID);
         return this;
     }
 
-    public ConferenceTagContentValues putName(@NonNull String value) {
+    public ArticleTagContentValues putName(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("name must not be null");
-        mContentValues.put(ConferenceTagColumns.NAME, value);
+        mContentValues.put(ArticleTagColumns.NAME, value);
         return this;
     }
 

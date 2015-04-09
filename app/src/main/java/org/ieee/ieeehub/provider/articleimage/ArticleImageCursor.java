@@ -32,8 +32,8 @@ public class ArticleImageCursor extends AbstractCursor implements ArticleImageMo
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getArticleId() {
-        Integer res = getIntegerOrNull(ArticleImageColumns.ARTICLE_ID);
+    public Long getArticleId() {
+        Long res = getLongOrNull(ArticleImageColumns.ARTICLE_ID);
         return res;
     }
 
@@ -98,12 +98,12 @@ public class ArticleImageCursor extends AbstractCursor implements ArticleImageMo
     }
 
     /**
-     * Get the {@code call} value.
+     * Get the {@code call_url} value.
      * Can be {@code null}.
      */
     @Nullable
-    public String getConferenceCall() {
-        String res = getStringOrNull(ConferenceColumns.CALL);
+    public String getConferenceCallUrl() {
+        String res = getStringOrNull(ConferenceColumns.CALL_URL);
         return res;
     }
 
@@ -154,6 +154,16 @@ public class ArticleImageCursor extends AbstractCursor implements ArticleImageMo
     @Nullable
     public String getConferenceRegion() {
         String res = getStringOrNull(ConferenceColumns.REGION);
+        return res;
+    }
+
+    /**
+     * Get the {@code website} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    public String getConferenceWebsite() {
+        String res = getStringOrNull(ConferenceColumns.WEBSITE);
         return res;
     }
 

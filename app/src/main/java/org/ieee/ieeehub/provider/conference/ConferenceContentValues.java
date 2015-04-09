@@ -95,13 +95,13 @@ public class ConferenceContentValues extends AbstractContentValues {
         return this;
     }
 
-    public ConferenceContentValues putCall(@Nullable String value) {
-        mContentValues.put(ConferenceColumns.CALL, value);
+    public ConferenceContentValues putCallUrl(@Nullable String value) {
+        mContentValues.put(ConferenceColumns.CALL_URL, value);
         return this;
     }
 
-    public ConferenceContentValues putCallNull() {
-        mContentValues.putNull(ConferenceColumns.CALL);
+    public ConferenceContentValues putCallUrlNull() {
+        mContentValues.putNull(ConferenceColumns.CALL_URL);
         return this;
     }
 
@@ -152,6 +152,16 @@ public class ConferenceContentValues extends AbstractContentValues {
 
     public ConferenceContentValues putRegionNull() {
         mContentValues.putNull(ConferenceColumns.REGION);
+        return this;
+    }
+
+    public ConferenceContentValues putWebsite(@Nullable String value) {
+        mContentValues.put(ConferenceColumns.WEBSITE, value);
+        return this;
+    }
+
+    public ConferenceContentValues putWebsiteNull() {
+        mContentValues.putNull(ConferenceColumns.WEBSITE);
         return this;
     }
 }

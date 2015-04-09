@@ -12,10 +12,10 @@ import android.util.Log;
 import org.ieee.ieeehub.BuildConfig;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
 import org.ieee.ieeehub.provider.articleimage.ArticleImageColumns;
+import org.ieee.ieeehub.provider.articletag.ArticleTagColumns;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
-import org.ieee.ieeehub.provider.conferencetag.ConferenceTagColumns;
 
 public class IEEEHubSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = IEEEHubSQLiteOpenHelper.class.getSimpleName();
@@ -47,6 +47,14 @@ public class IEEEHubSQLiteOpenHelper extends SQLiteOpenHelper {
             + ", CONSTRAINT fk_article_id FOREIGN KEY (" + ArticleImageColumns.ARTICLE_ID + ") REFERENCES conference (_id) ON DELETE CASCADE"
             + " );";
 
+    public static final String SQL_CREATE_TABLE_ARTICLE_TAG = "CREATE TABLE IF NOT EXISTS "
+            + ArticleTagColumns.TABLE_NAME + " ( "
+            + ArticleTagColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ArticleTagColumns.ARTICLE_ID + " INTEGER, "
+            + ArticleTagColumns.NAME + " TEXT NOT NULL "
+            + ", CONSTRAINT fk_article_id FOREIGN KEY (" + ArticleTagColumns.ARTICLE_ID + ") REFERENCES article (_id) ON DELETE CASCADE"
+            + " );";
+
     public static final String SQL_CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS "
             + CategoryColumns.TABLE_NAME + " ( "
             + CategoryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -64,12 +72,13 @@ public class IEEEHubSQLiteOpenHelper extends SQLiteOpenHelper {
             + ConferenceColumns.END_DATE + " INTEGER, "
             + ConferenceColumns.DISPLAY_DATE + " TEXT, "
             + ConferenceColumns.CONTACT + " TEXT, "
-            + ConferenceColumns.CALL + " TEXT, "
+            + ConferenceColumns.CALL_URL + " TEXT, "
             + ConferenceColumns.LOCATION + " TEXT, "
             + ConferenceColumns.LINK + " TEXT, "
             + ConferenceColumns.NUMBER + " INTEGER, "
             + ConferenceColumns.ATTENDANCE + " INTEGER, "
-            + ConferenceColumns.REGION + " TEXT "
+            + ConferenceColumns.REGION + " TEXT, "
+            + ConferenceColumns.WEBSITE + " TEXT "
             + " );";
 
     public static final String SQL_CREATE_TABLE_CONFERENCE_SPONSOR = "CREATE TABLE IF NOT EXISTS "
@@ -78,14 +87,6 @@ public class IEEEHubSQLiteOpenHelper extends SQLiteOpenHelper {
             + ConferenceSponsorColumns.CONFERENCE_ID + " INTEGER, "
             + ConferenceSponsorColumns.NAME + " TEXT NOT NULL "
             + ", CONSTRAINT fk_conference_id FOREIGN KEY (" + ConferenceSponsorColumns.CONFERENCE_ID + ") REFERENCES conference (_id) ON DELETE CASCADE"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_CONFERENCE_TAG = "CREATE TABLE IF NOT EXISTS "
-            + ConferenceTagColumns.TABLE_NAME + " ( "
-            + ConferenceTagColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + ConferenceTagColumns.CONFERENCE_ID + " INTEGER, "
-            + ConferenceTagColumns.NAME + " TEXT NOT NULL "
-            + ", CONSTRAINT fk_conference_id FOREIGN KEY (" + ConferenceTagColumns.CONFERENCE_ID + ") REFERENCES conference (_id) ON DELETE CASCADE"
             + " );";
 
     // @formatter:on
@@ -144,10 +145,10 @@ public class IEEEHubSQLiteOpenHelper extends SQLiteOpenHelper {
         mOpenHelperCallbacks.onPreCreate(mContext, db);
         db.execSQL(SQL_CREATE_TABLE_ARTICLE);
         db.execSQL(SQL_CREATE_TABLE_ARTICLE_IMAGE);
+        db.execSQL(SQL_CREATE_TABLE_ARTICLE_TAG);
         db.execSQL(SQL_CREATE_TABLE_CATEGORY);
         db.execSQL(SQL_CREATE_TABLE_CONFERENCE);
         db.execSQL(SQL_CREATE_TABLE_CONFERENCE_SPONSOR);
-        db.execSQL(SQL_CREATE_TABLE_CONFERENCE_TAG);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 
