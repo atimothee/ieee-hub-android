@@ -17,5 +17,17 @@
     <string name="content_authority">org.ieee.ieeehub.provider</string>
     <string name="account_type">org.ieee.ieeehub.sync</string>
     <string name="account_name">IEEE Data</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="title_activity_nav">NavActivity</string>
+
+    <string-array name="drawer_titles">
+        <item>Tabs</item>
+        <item>WebView</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
 </resources>

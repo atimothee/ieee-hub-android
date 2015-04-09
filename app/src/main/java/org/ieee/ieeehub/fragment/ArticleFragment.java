@@ -35,6 +35,7 @@ import org.ieee.ieeehub.provider.article.ArticleColumns;
  */
 public class ArticleFragment extends Fragment implements AbsListView.OnItemClickListener, LoaderManager.LoaderCallbacks {
 
+    public static final String TAG = ArticleFragment.class.getSimpleName();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
