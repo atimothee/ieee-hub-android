@@ -7,7 +7,8 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import org.ieee.ieeehub.provider.base.AbstractSelection;
-import org.ieee.ieeehub.provider.conference.*;
+import org.ieee.ieeehub.provider.article.*;
+import org.ieee.ieeehub.provider.category.*;
 
 /**
  * Selection for the {@code article_image} table.
@@ -83,403 +84,278 @@ public class ArticleImageSelection extends AbstractSelection<ArticleImageSelecti
         return this;
     }
 
-    public ArticleImageSelection conferenceTitle(String... value) {
-        addEquals(ConferenceColumns.TITLE, value);
+    public ArticleImageSelection articleTitle(String... value) {
+        addEquals(ArticleColumns.TITLE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceTitleNot(String... value) {
-        addNotEquals(ConferenceColumns.TITLE, value);
+    public ArticleImageSelection articleTitleNot(String... value) {
+        addNotEquals(ArticleColumns.TITLE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceTitleLike(String... value) {
-        addLike(ConferenceColumns.TITLE, value);
+    public ArticleImageSelection articleTitleLike(String... value) {
+        addLike(ArticleColumns.TITLE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceTitleContains(String... value) {
-        addContains(ConferenceColumns.TITLE, value);
+    public ArticleImageSelection articleTitleContains(String... value) {
+        addContains(ArticleColumns.TITLE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceTitleStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.TITLE, value);
+    public ArticleImageSelection articleTitleStartsWith(String... value) {
+        addStartsWith(ArticleColumns.TITLE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceTitleEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.TITLE, value);
+    public ArticleImageSelection articleTitleEndsWith(String... value) {
+        addEndsWith(ArticleColumns.TITLE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDescription(String... value) {
-        addEquals(ConferenceColumns.DESCRIPTION, value);
+    public ArticleImageSelection articleText(String... value) {
+        addEquals(ArticleColumns.TEXT, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDescriptionNot(String... value) {
-        addNotEquals(ConferenceColumns.DESCRIPTION, value);
+    public ArticleImageSelection articleTextNot(String... value) {
+        addNotEquals(ArticleColumns.TEXT, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDescriptionLike(String... value) {
-        addLike(ConferenceColumns.DESCRIPTION, value);
+    public ArticleImageSelection articleTextLike(String... value) {
+        addLike(ArticleColumns.TEXT, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDescriptionContains(String... value) {
-        addContains(ConferenceColumns.DESCRIPTION, value);
+    public ArticleImageSelection articleTextContains(String... value) {
+        addContains(ArticleColumns.TEXT, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDescriptionStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.DESCRIPTION, value);
+    public ArticleImageSelection articleTextStartsWith(String... value) {
+        addStartsWith(ArticleColumns.TEXT, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDescriptionEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.DESCRIPTION, value);
+    public ArticleImageSelection articleTextEndsWith(String... value) {
+        addEndsWith(ArticleColumns.TEXT, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceStartDate(Date... value) {
-        addEquals(ConferenceColumns.START_DATE, value);
+    public ArticleImageSelection articlePubDate(Date... value) {
+        addEquals(ArticleColumns.PUB_DATE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceStartDateNot(Date... value) {
-        addNotEquals(ConferenceColumns.START_DATE, value);
+    public ArticleImageSelection articlePubDateNot(Date... value) {
+        addNotEquals(ArticleColumns.PUB_DATE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceStartDate(Long... value) {
-        addEquals(ConferenceColumns.START_DATE, value);
+    public ArticleImageSelection articlePubDate(Long... value) {
+        addEquals(ArticleColumns.PUB_DATE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceStartDateAfter(Date value) {
-        addGreaterThan(ConferenceColumns.START_DATE, value);
+    public ArticleImageSelection articlePubDateAfter(Date value) {
+        addGreaterThan(ArticleColumns.PUB_DATE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceStartDateAfterEq(Date value) {
-        addGreaterThanOrEquals(ConferenceColumns.START_DATE, value);
+    public ArticleImageSelection articlePubDateAfterEq(Date value) {
+        addGreaterThanOrEquals(ArticleColumns.PUB_DATE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceStartDateBefore(Date value) {
-        addLessThan(ConferenceColumns.START_DATE, value);
+    public ArticleImageSelection articlePubDateBefore(Date value) {
+        addLessThan(ArticleColumns.PUB_DATE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceStartDateBeforeEq(Date value) {
-        addLessThanOrEquals(ConferenceColumns.START_DATE, value);
+    public ArticleImageSelection articlePubDateBeforeEq(Date value) {
+        addLessThanOrEquals(ArticleColumns.PUB_DATE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceEndDate(Date... value) {
-        addEquals(ConferenceColumns.END_DATE, value);
+    public ArticleImageSelection articleCategoryId(Integer... value) {
+        addEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceEndDateNot(Date... value) {
-        addNotEquals(ConferenceColumns.END_DATE, value);
+    public ArticleImageSelection articleCategoryIdNot(Integer... value) {
+        addNotEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceEndDate(Long... value) {
-        addEquals(ConferenceColumns.END_DATE, value);
+    public ArticleImageSelection articleCategoryIdGt(int value) {
+        addGreaterThan(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceEndDateAfter(Date value) {
-        addGreaterThan(ConferenceColumns.END_DATE, value);
+    public ArticleImageSelection articleCategoryIdGtEq(int value) {
+        addGreaterThanOrEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceEndDateAfterEq(Date value) {
-        addGreaterThanOrEquals(ConferenceColumns.END_DATE, value);
+    public ArticleImageSelection articleCategoryIdLt(int value) {
+        addLessThan(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceEndDateBefore(Date value) {
-        addLessThan(ConferenceColumns.END_DATE, value);
+    public ArticleImageSelection articleCategoryIdLtEq(int value) {
+        addLessThanOrEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceEndDateBeforeEq(Date value) {
-        addLessThanOrEquals(ConferenceColumns.END_DATE, value);
+    public ArticleImageSelection articleCategoryName(String... value) {
+        addEquals(CategoryColumns.NAME, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDisplayDate(String... value) {
-        addEquals(ConferenceColumns.DISPLAY_DATE, value);
+    public ArticleImageSelection articleCategoryNameNot(String... value) {
+        addNotEquals(CategoryColumns.NAME, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDisplayDateNot(String... value) {
-        addNotEquals(ConferenceColumns.DISPLAY_DATE, value);
+    public ArticleImageSelection articleCategoryNameLike(String... value) {
+        addLike(CategoryColumns.NAME, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDisplayDateLike(String... value) {
-        addLike(ConferenceColumns.DISPLAY_DATE, value);
+    public ArticleImageSelection articleCategoryNameContains(String... value) {
+        addContains(CategoryColumns.NAME, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDisplayDateContains(String... value) {
-        addContains(ConferenceColumns.DISPLAY_DATE, value);
+    public ArticleImageSelection articleCategoryNameStartsWith(String... value) {
+        addStartsWith(CategoryColumns.NAME, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDisplayDateStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.DISPLAY_DATE, value);
+    public ArticleImageSelection articleCategoryNameEndsWith(String... value) {
+        addEndsWith(CategoryColumns.NAME, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceDisplayDateEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.DISPLAY_DATE, value);
+    public ArticleImageSelection articleCategoryLink(String... value) {
+        addEquals(CategoryColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceContact(String... value) {
-        addEquals(ConferenceColumns.CONTACT, value);
+    public ArticleImageSelection articleCategoryLinkNot(String... value) {
+        addNotEquals(CategoryColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceContactNot(String... value) {
-        addNotEquals(ConferenceColumns.CONTACT, value);
+    public ArticleImageSelection articleCategoryLinkLike(String... value) {
+        addLike(CategoryColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceContactLike(String... value) {
-        addLike(ConferenceColumns.CONTACT, value);
+    public ArticleImageSelection articleCategoryLinkContains(String... value) {
+        addContains(CategoryColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceContactContains(String... value) {
-        addContains(ConferenceColumns.CONTACT, value);
+    public ArticleImageSelection articleCategoryLinkStartsWith(String... value) {
+        addStartsWith(CategoryColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceContactStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.CONTACT, value);
+    public ArticleImageSelection articleCategoryLinkEndsWith(String... value) {
+        addEndsWith(CategoryColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceContactEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.CONTACT, value);
+    public ArticleImageSelection articleCategoryColor(String... value) {
+        addEquals(CategoryColumns.COLOR, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceCallUrl(String... value) {
-        addEquals(ConferenceColumns.CALL_URL, value);
+    public ArticleImageSelection articleCategoryColorNot(String... value) {
+        addNotEquals(CategoryColumns.COLOR, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceCallUrlNot(String... value) {
-        addNotEquals(ConferenceColumns.CALL_URL, value);
+    public ArticleImageSelection articleCategoryColorLike(String... value) {
+        addLike(CategoryColumns.COLOR, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceCallUrlLike(String... value) {
-        addLike(ConferenceColumns.CALL_URL, value);
+    public ArticleImageSelection articleCategoryColorContains(String... value) {
+        addContains(CategoryColumns.COLOR, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceCallUrlContains(String... value) {
-        addContains(ConferenceColumns.CALL_URL, value);
+    public ArticleImageSelection articleCategoryColorStartsWith(String... value) {
+        addStartsWith(CategoryColumns.COLOR, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceCallUrlStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.CALL_URL, value);
+    public ArticleImageSelection articleCategoryColorEndsWith(String... value) {
+        addEndsWith(CategoryColumns.COLOR, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceCallUrlEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.CALL_URL, value);
+    public ArticleImageSelection articleImage(String... value) {
+        addEquals(ArticleColumns.IMAGE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLocation(String... value) {
-        addEquals(ConferenceColumns.LOCATION, value);
+    public ArticleImageSelection articleImageNot(String... value) {
+        addNotEquals(ArticleColumns.IMAGE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLocationNot(String... value) {
-        addNotEquals(ConferenceColumns.LOCATION, value);
+    public ArticleImageSelection articleImageLike(String... value) {
+        addLike(ArticleColumns.IMAGE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLocationLike(String... value) {
-        addLike(ConferenceColumns.LOCATION, value);
+    public ArticleImageSelection articleImageContains(String... value) {
+        addContains(ArticleColumns.IMAGE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLocationContains(String... value) {
-        addContains(ConferenceColumns.LOCATION, value);
+    public ArticleImageSelection articleImageStartsWith(String... value) {
+        addStartsWith(ArticleColumns.IMAGE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLocationStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.LOCATION, value);
+    public ArticleImageSelection articleImageEndsWith(String... value) {
+        addEndsWith(ArticleColumns.IMAGE, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLocationEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.LOCATION, value);
+    public ArticleImageSelection articleLink(String... value) {
+        addEquals(ArticleColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLink(String... value) {
-        addEquals(ConferenceColumns.LINK, value);
+    public ArticleImageSelection articleLinkNot(String... value) {
+        addNotEquals(ArticleColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLinkNot(String... value) {
-        addNotEquals(ConferenceColumns.LINK, value);
+    public ArticleImageSelection articleLinkLike(String... value) {
+        addLike(ArticleColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLinkLike(String... value) {
-        addLike(ConferenceColumns.LINK, value);
+    public ArticleImageSelection articleLinkContains(String... value) {
+        addContains(ArticleColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLinkContains(String... value) {
-        addContains(ConferenceColumns.LINK, value);
+    public ArticleImageSelection articleLinkStartsWith(String... value) {
+        addStartsWith(ArticleColumns.LINK, value);
         return this;
     }
 
-    public ArticleImageSelection conferenceLinkStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.LINK, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceLinkEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.LINK, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceNumber(Integer... value) {
-        addEquals(ConferenceColumns.NUMBER, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceNumberNot(Integer... value) {
-        addNotEquals(ConferenceColumns.NUMBER, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceNumberGt(int value) {
-        addGreaterThan(ConferenceColumns.NUMBER, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceNumberGtEq(int value) {
-        addGreaterThanOrEquals(ConferenceColumns.NUMBER, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceNumberLt(int value) {
-        addLessThan(ConferenceColumns.NUMBER, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceNumberLtEq(int value) {
-        addLessThanOrEquals(ConferenceColumns.NUMBER, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceAttendance(Integer... value) {
-        addEquals(ConferenceColumns.ATTENDANCE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceAttendanceNot(Integer... value) {
-        addNotEquals(ConferenceColumns.ATTENDANCE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceAttendanceGt(int value) {
-        addGreaterThan(ConferenceColumns.ATTENDANCE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceAttendanceGtEq(int value) {
-        addGreaterThanOrEquals(ConferenceColumns.ATTENDANCE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceAttendanceLt(int value) {
-        addLessThan(ConferenceColumns.ATTENDANCE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceAttendanceLtEq(int value) {
-        addLessThanOrEquals(ConferenceColumns.ATTENDANCE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceRegion(String... value) {
-        addEquals(ConferenceColumns.REGION, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceRegionNot(String... value) {
-        addNotEquals(ConferenceColumns.REGION, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceRegionLike(String... value) {
-        addLike(ConferenceColumns.REGION, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceRegionContains(String... value) {
-        addContains(ConferenceColumns.REGION, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceRegionStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.REGION, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceRegionEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.REGION, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceWebsite(String... value) {
-        addEquals(ConferenceColumns.WEBSITE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceWebsiteNot(String... value) {
-        addNotEquals(ConferenceColumns.WEBSITE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceWebsiteLike(String... value) {
-        addLike(ConferenceColumns.WEBSITE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceWebsiteContains(String... value) {
-        addContains(ConferenceColumns.WEBSITE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceWebsiteStartsWith(String... value) {
-        addStartsWith(ConferenceColumns.WEBSITE, value);
-        return this;
-    }
-
-    public ArticleImageSelection conferenceWebsiteEndsWith(String... value) {
-        addEndsWith(ConferenceColumns.WEBSITE, value);
+    public ArticleImageSelection articleLinkEndsWith(String... value) {
+        addEndsWith(ArticleColumns.LINK, value);
         return this;
     }
 

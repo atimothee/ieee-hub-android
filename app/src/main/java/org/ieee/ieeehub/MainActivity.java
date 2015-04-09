@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.ieee.ieeehub.fragment.ArticleFragment;
 import org.ieee.ieeehub.fragment.NavigationDrawerFragment;
 import org.ieee.ieeehub.helper.AccountHelper;
 import org.ieee.ieeehub.provider.IEEEHubProvider;
@@ -19,7 +20,7 @@ import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 
 
 public class MainActivity extends MaterialNavigationDrawer
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements ArticleFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -48,14 +49,7 @@ public class MainActivity extends MaterialNavigationDrawer
 ////                (DrawerLayout) findViewById(R.id.drawer_layout));
 //    }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
-    }
+
 
     public void onSectionAttached(int number) {
         switch (number) {
@@ -110,7 +104,7 @@ public class MainActivity extends MaterialNavigationDrawer
     @Override
     public void init(Bundle bundle) {
 
-        section1 = newSection("Spectrum", new PlaceholderFragment().newInstance(1));
+        section1 = newSection("Spectrum", new ArticleFragment());
         setDrawerHeaderImage(getResources().getDrawable(R.drawable.header));
         addSection(section1);
         //addSection(section1);
@@ -118,7 +112,12 @@ public class MainActivity extends MaterialNavigationDrawer
         bundle1.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle1.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         AccountHelper accountHelper = new AccountHelper(this);
-        ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
+        //ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle1);
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
+
     }
 
     /**

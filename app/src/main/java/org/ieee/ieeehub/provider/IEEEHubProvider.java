@@ -169,8 +169,11 @@ public class IEEEHubProvider extends BaseContentProvider {
                 res.table = ArticleImageColumns.TABLE_NAME;
                 res.idColumn = ArticleImageColumns._ID;
                 res.tablesWithJoins = ArticleImageColumns.TABLE_NAME;
-                if (ConferenceColumns.hasColumns(projection)) {
-                    res.tablesWithJoins += " LEFT OUTER JOIN " + ConferenceColumns.TABLE_NAME + " AS " + ArticleImageColumns.PREFIX_CONFERENCE + " ON " + ArticleImageColumns.TABLE_NAME + "." + ArticleImageColumns.ARTICLE_ID + "=" + ArticleImageColumns.PREFIX_CONFERENCE + "." + ConferenceColumns._ID;
+                if (ArticleColumns.hasColumns(projection) || CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + ArticleColumns.TABLE_NAME + " AS " + ArticleImageColumns.PREFIX_ARTICLE + " ON " + ArticleImageColumns.TABLE_NAME + "." + ArticleImageColumns.ARTICLE_ID + "=" + ArticleImageColumns.PREFIX_ARTICLE + "." + ArticleColumns._ID;
+                }
+                if (CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + CategoryColumns.TABLE_NAME + " AS " + ArticleColumns.PREFIX_CATEGORY + " ON " + ArticleImageColumns.PREFIX_ARTICLE + "." + ArticleColumns.CATEGORY_ID + "=" + ArticleColumns.PREFIX_CATEGORY + "." + CategoryColumns._ID;
                 }
                 res.orderBy = ArticleImageColumns.DEFAULT_ORDER;
                 break;

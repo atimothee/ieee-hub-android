@@ -93,7 +93,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 contentValuesList.add(contentValues);
             }
             mContentResolver.bulkInsert(CategoryColumns.CONTENT_URI, contentValuesList.toArray(new ContentValues[contentValuesList.size()]));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
@@ -121,7 +121,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     tagContentValues.putArticleId(Long.valueOf(uri.getPathSegments().get(1)));
                     tagContentValues.insert(mContentResolver);
                 }
-            }} catch (IOException e) {
+            }} catch (Exception e) {
             e.printStackTrace();
         }
         try {
@@ -153,7 +153,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 }
 
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

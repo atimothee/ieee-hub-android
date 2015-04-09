@@ -7,7 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.ieee.ieeehub.provider.base.AbstractCursor;
-import org.ieee.ieeehub.provider.conference.*;
+import org.ieee.ieeehub.provider.article.*;
+import org.ieee.ieeehub.provider.category.*;
 
 /**
  * Cursor wrapper for the {@code article_image} table.
@@ -42,78 +43,48 @@ public class ArticleImageCursor extends AbstractCursor implements ArticleImageMo
      * Can be {@code null}.
      */
     @Nullable
-    public String getConferenceTitle() {
-        String res = getStringOrNull(ConferenceColumns.TITLE);
+    public String getArticleTitle() {
+        String res = getStringOrNull(ArticleColumns.TITLE);
         return res;
     }
 
     /**
-     * Get the {@code description} value.
+     * Get the {@code text} value.
      * Can be {@code null}.
      */
     @Nullable
-    public String getConferenceDescription() {
-        String res = getStringOrNull(ConferenceColumns.DESCRIPTION);
+    public String getArticleText() {
+        String res = getStringOrNull(ArticleColumns.TEXT);
         return res;
     }
 
     /**
-     * Get the {@code start_date} value.
+     * Get the {@code pub_date} value.
      * Can be {@code null}.
      */
     @Nullable
-    public Date getConferenceStartDate() {
-        Date res = getDateOrNull(ConferenceColumns.START_DATE);
+    public Date getArticlePubDate() {
+        Date res = getDateOrNull(ArticleColumns.PUB_DATE);
         return res;
     }
 
     /**
-     * Get the {@code end_date} value.
+     * Get the {@code category_id} value.
      * Can be {@code null}.
      */
     @Nullable
-    public Date getConferenceEndDate() {
-        Date res = getDateOrNull(ConferenceColumns.END_DATE);
+    public Integer getArticleCategoryId() {
+        Integer res = getIntegerOrNull(ArticleColumns.CATEGORY_ID);
         return res;
     }
 
     /**
-     * Get the {@code display_date} value.
+     * Get the {@code name} value.
      * Can be {@code null}.
      */
     @Nullable
-    public String getConferenceDisplayDate() {
-        String res = getStringOrNull(ConferenceColumns.DISPLAY_DATE);
-        return res;
-    }
-
-    /**
-     * Get the {@code contact} value.
-     * Can be {@code null}.
-     */
-    @Nullable
-    public String getConferenceContact() {
-        String res = getStringOrNull(ConferenceColumns.CONTACT);
-        return res;
-    }
-
-    /**
-     * Get the {@code call_url} value.
-     * Can be {@code null}.
-     */
-    @Nullable
-    public String getConferenceCallUrl() {
-        String res = getStringOrNull(ConferenceColumns.CALL_URL);
-        return res;
-    }
-
-    /**
-     * Get the {@code location} value.
-     * Can be {@code null}.
-     */
-    @Nullable
-    public String getConferenceLocation() {
-        String res = getStringOrNull(ConferenceColumns.LOCATION);
+    public String getArticleCategoryName() {
+        String res = getStringOrNull(CategoryColumns.NAME);
         return res;
     }
 
@@ -122,48 +93,38 @@ public class ArticleImageCursor extends AbstractCursor implements ArticleImageMo
      * Can be {@code null}.
      */
     @Nullable
-    public String getConferenceLink() {
-        String res = getStringOrNull(ConferenceColumns.LINK);
+    public String getArticleCategoryLink() {
+        String res = getStringOrNull(CategoryColumns.LINK);
         return res;
     }
 
     /**
-     * Get the {@code number} value.
+     * Get the {@code color} value.
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getConferenceNumber() {
-        Integer res = getIntegerOrNull(ConferenceColumns.NUMBER);
+    public String getArticleCategoryColor() {
+        String res = getStringOrNull(CategoryColumns.COLOR);
         return res;
     }
 
     /**
-     * Get the {@code attendance} value.
+     * Get the {@code image} value.
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getConferenceAttendance() {
-        Integer res = getIntegerOrNull(ConferenceColumns.ATTENDANCE);
+    public String getArticleImage() {
+        String res = getStringOrNull(ArticleColumns.IMAGE);
         return res;
     }
 
     /**
-     * Get the {@code region} value.
+     * Get the {@code link} value.
      * Can be {@code null}.
      */
     @Nullable
-    public String getConferenceRegion() {
-        String res = getStringOrNull(ConferenceColumns.REGION);
-        return res;
-    }
-
-    /**
-     * Get the {@code website} value.
-     * Can be {@code null}.
-     */
-    @Nullable
-    public String getConferenceWebsite() {
-        String res = getStringOrNull(ConferenceColumns.WEBSITE);
+    public String getArticleLink() {
+        String res = getStringOrNull(ArticleColumns.LINK);
         return res;
     }
 

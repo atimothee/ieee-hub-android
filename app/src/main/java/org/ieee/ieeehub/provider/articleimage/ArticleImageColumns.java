@@ -47,5 +47,5 @@ public class ArticleImageColumns implements BaseColumns {
         return false;
     }
 
-    public static final String PREFIX_CONFERENCE = TABLE_NAME + "__" + ConferenceColumns.TABLE_NAME;
+    public static final String PREFIX_ARTICLE = TABLE_NAME + "__" + ArticleColumns.TABLE_NAME;
 }

@@ -1,21 +1,24 @@
 package org.ieee.ieeehub.fragment;
 
 import android.app.Activity;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+
+import com.squareup.picasso.Picasso;
 
 import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
@@ -90,6 +93,16 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
         }
 
         mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.article_item, null, COLUMNS, VIEW_IDS, 0);
+        mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int i) {
+                if(view.getId()==R.id.article_item_image){
+                    Picasso.with(getActivity()).load("http://spectrum.ieee.org"+cursor.getString(cursor.getColumnIndex(ArticleColumns.IMAGE))).into((ImageView)view);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -154,7 +167,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
 
     @Override
     public void onLoadFinished(Loader loader, Object data) {
-        mAdapter.swapCursor((Cursor) data);
+        mAdapter.swapCursor((Cursor)data);
     }
 
     @Override

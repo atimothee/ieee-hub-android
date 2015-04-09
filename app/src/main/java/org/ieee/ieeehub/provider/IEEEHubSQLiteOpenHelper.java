@@ -44,7 +44,7 @@ public class IEEEHubSQLiteOpenHelper extends SQLiteOpenHelper {
             + ArticleImageColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + ArticleImageColumns.ARTICLE_ID + " INTEGER, "
             + ArticleImageColumns.URL + " TEXT NOT NULL "
-            + ", CONSTRAINT fk_article_id FOREIGN KEY (" + ArticleImageColumns.ARTICLE_ID + ") REFERENCES conference (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_article_id FOREIGN KEY (" + ArticleImageColumns.ARTICLE_ID + ") REFERENCES article (_id) ON DELETE CASCADE"
             + " );";
 
     public static final String SQL_CREATE_TABLE_ARTICLE_TAG = "CREATE TABLE IF NOT EXISTS "
