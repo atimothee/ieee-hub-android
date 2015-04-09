@@ -17,7 +17,6 @@ import org.ieee.ieeehub.provider.articleimage.ArticleImageColumns;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
-import org.ieee.ieeehub.provider.conferencetag.ConferenceTagColumns;
 
 public class IEEEHubProvider extends BaseContentProvider {
     private static final String TAG = IEEEHubProvider.class.getSimpleName();
