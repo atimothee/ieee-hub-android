@@ -15,6 +15,8 @@ import android.widget.ListView;
 
 import org.ieee.ieeehub.fragment.ArticleFragment;
 import org.ieee.ieeehub.fragment.BrowseFragment;
+import org.ieee.ieeehub.fragment.ConferenceListFragment;
+import org.ieee.ieeehub.fragment.TabbedFragment;
 
 
 public class NavigationDrawerActivity extends ActionBarActivity implements ArticleFragment.OnFragmentInteractionListener{
@@ -114,7 +116,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
     @Override
     public void onFragmentInteraction(String id) {
-        
+
     }
 
     private class DrawerItemClickListener implements AdapterView.OnItemClickListener {
@@ -130,14 +132,14 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
             case 0:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, new BrowseFragment(), BrowseFragment.TAG).commit();
+                        .replace(R.id.content_frame, new TabbedFragment(), TabbedFragment.TAG).commit();
                 break;
             case 1:
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame,
-                                new ArticleFragment(),
-                                ArticleFragment.TAG).commit();
+                                new ConferenceListFragment(),
+                                ConferenceListFragment.TAG).commit();
                 break;
         }
         mDrawerLayout.closeDrawer(mDrawerList);

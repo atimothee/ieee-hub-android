@@ -26,6 +26,7 @@ import org.ieee.ieeehub.provider.conference.ConferenceColumns;
  * interface.
  */
 public class ConferenceListFragment extends ListFragment implements LoaderManager.LoaderCallbacks {
+    public static final String TAG = ConferenceListFragment.class.getSimpleName();
     private SimpleCursorAdapter mAdapter;
 
     /**
