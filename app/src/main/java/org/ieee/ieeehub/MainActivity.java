@@ -1,22 +1,21 @@
 package org.ieee.ieeehub;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 
 import org.ieee.ieeehub.fragment.NavigationDrawerFragment;
 
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 
-public class MainActivity extends ActionBarActivity
+
+public class MainActivity extends MaterialNavigationDrawer
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -28,21 +27,23 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    MaterialSection section1;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
-
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+////        setContentView(R.layout.activity_main);
+////
+////        mNavigationDrawerFragment = (NavigationDrawerFragment)
+////                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+////        mTitle = getTitle();
+////
+////        // Set up the drawer.
+////        mNavigationDrawerFragment.setUp(
+////                R.id.navigation_drawer,
+////                (DrawerLayout) findViewById(R.id.drawer_layout));
+//    }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -75,32 +76,41 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+//            // Only show items in the action bar relevant to this screen
+//            // if the drawer is not showing. Otherwise, let the drawer
+//            // decide what to show in the action bar.
+//            getMenuInflater().inflate(R.menu.main, menu);
+//            restoreActionBar();
+//            return true;
+//        }
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void init(Bundle bundle) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        section1 = newSection("Spectrum", new PlaceholderFragment().newInstance(1));
+        setDrawerHeaderImage(getResources().getDrawable(R.drawable.header));
+        addSection(section1);
+        //addSection(section1);
     }
 
     /**
@@ -131,7 +141,7 @@ public class MainActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_main, null);
             return rootView;
         }
 

@@ -39,6 +39,7 @@
                 android:resource="@xml/syncadapter" />
         </service>
         <activity
+            android:theme="@style/MyNavigationDrawerTheme"
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
