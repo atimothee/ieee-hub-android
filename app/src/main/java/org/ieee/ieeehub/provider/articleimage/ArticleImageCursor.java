@@ -73,8 +73,8 @@ public class ArticleImageCursor extends AbstractCursor implements ArticleImageMo
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getArticleCategoryId() {
-        Integer res = getIntegerOrNull(ArticleColumns.CATEGORY_ID);
+    public Long getArticleCategoryId() {
+        Long res = getLongOrNull(ArticleColumns.CATEGORY_ID);
         return res;
     }
 

@@ -1,17 +1,22 @@
 package org.ieee.ieeehub;
 
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,12 +24,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.ieee.ieeehub.fragment.ArticleFragment;
-import org.ieee.ieeehub.fragment.ConferenceListFragment;
+import org.ieee.ieeehub.provider.category.CategoryColumns;
 
 import java.util.Locale;
 
 
-public class NavigationDrawerActivity extends ActionBarActivity implements ArticleFragment.OnFragmentInteractionListener, ActionBar.TabListener {
+public class NavigationDrawerActivity extends ActionBarActivity implements ArticleFragment.OnFragmentInteractionListener, ActionBar.TabListener , LoaderManager.LoaderCallbacks{
 
     private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
 
@@ -35,7 +40,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mDrawerItmes;
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    ArticlePagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -45,6 +50,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
+        getSupportLoaderManager().initLoader(0, savedInstanceState, this);
         setContentView(R.layout.activity_navigation_drawer);
 
         mTitle = mDrawerTitle = getTitle();
@@ -98,7 +105,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -164,6 +171,39 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
     }
 
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, CategoryColumns.CONTENT_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader loader, Object data) {
+        Cursor cursor = (Cursor) data;
+        cursor.moveToFirst();
+        mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), (Cursor)data);
+        Log.d(TAG, "cursor size "+cursor.getLong(cursor.getColumnIndex(CategoryColumns._ID)));
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            // Create a tab with text corresponding to the page title defined by
+            // the adapter. Also specify this Activity object, which implements
+            // the TabListener interface, as the callback (listener) for when
+            // this tab is selected.
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(mSectionsPagerAdapter.getPageTitle(i))
+                            .setTabListener(this));
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+
+    }
+
     private class DrawerItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -215,37 +255,37 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class ArticlePagerAdapter extends FragmentPagerAdapter {
+        private Cursor mCursor;
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        public ArticlePagerAdapter(FragmentManager fm, Cursor cursor) {
             super(fm);
+            this.mCursor = cursor;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new ArticleFragment();
+            if(mCursor.move(position)) {
+                return ArticleFragment.newInstance(mCursor.getLong(mCursor.getColumnIndex(CategoryColumns._ID)));
+            }
+           return ArticleFragment.newInstance(Long.valueOf(1));
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            if(mCursor !=null) {
+                return mCursor.getCount();
+            }else {
+                return 0;
+            }
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
-            }
-            return null;
+            return mCursor.getString(mCursor.getColumnIndex(CategoryColumns.NAME));
         }
     }
 }

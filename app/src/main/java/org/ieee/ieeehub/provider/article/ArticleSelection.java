@@ -148,32 +148,32 @@ public class ArticleSelection extends AbstractSelection<ArticleSelection> {
         return this;
     }
 
-    public ArticleSelection categoryId(Integer... value) {
+    public ArticleSelection categoryId(Long... value) {
         addEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleSelection categoryIdNot(Integer... value) {
+    public ArticleSelection categoryIdNot(Long... value) {
         addNotEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleSelection categoryIdGt(int value) {
+    public ArticleSelection categoryIdGt(long value) {
         addGreaterThan(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleSelection categoryIdGtEq(int value) {
+    public ArticleSelection categoryIdGtEq(long value) {
         addGreaterThanOrEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleSelection categoryIdLt(int value) {
+    public ArticleSelection categoryIdLt(long value) {
         addLessThan(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleSelection categoryIdLtEq(int value) {
+    public ArticleSelection categoryIdLtEq(long value) {
         addLessThanOrEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }

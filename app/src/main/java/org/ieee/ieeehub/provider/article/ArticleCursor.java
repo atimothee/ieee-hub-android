@@ -64,8 +64,8 @@ public class ArticleCursor extends AbstractCursor implements ArticleModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getCategoryId() {
-        Integer res = getIntegerOrNull(ArticleColumns.CATEGORY_ID);
+    public Long getCategoryId() {
+        Long res = getLongOrNull(ArticleColumns.CATEGORY_ID);
         return res;
     }
 

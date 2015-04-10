@@ -38,7 +38,7 @@ public interface ArticleModel extends BaseModel {
      * Can be {@code null}.
      */
     @Nullable
-    Integer getCategoryId();
+    Long getCategoryId();
 
     /**
      * Get the {@code image} value.

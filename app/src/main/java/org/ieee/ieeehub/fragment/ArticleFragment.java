@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
+import org.ieee.ieeehub.provider.article.ArticleSelection;
 
 /**
  * A fragment representing a list of Items.
@@ -38,11 +40,11 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     public static final String TAG = ArticleFragment.class.getSimpleName();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "category_id";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private Long mParam1;
     private String mParam2;
 
     private String[] COLUMNS = {ArticleColumns.TITLE, ArticleColumns.IMAGE};
@@ -62,11 +64,11 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     private SimpleCursorAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static ArticleFragment newInstance(String param1, String param2) {
+    public static ArticleFragment newInstance(Long param1) {
         ArticleFragment fragment = new ArticleFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putLong(ARG_PARAM1, param1);
+        Log.d(TAG, "param1 "+param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,7 +83,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(0, getArguments(), this);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getLong(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
@@ -163,7 +165,9 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getActivity(), ArticleColumns.CONTENT_URI, null, null, null, null);
+        ArticleSelection articleSelection = new ArticleSelection();
+        articleSelection.categoryId((args.getLong(ARG_PARAM1)));
+        return new CursorLoader(getActivity(), ArticleColumns.CONTENT_URI, null, articleSelection.sel(), articleSelection.args(), null);
     }
 
     @Override

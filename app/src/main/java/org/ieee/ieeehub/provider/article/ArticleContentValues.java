@@ -60,7 +60,7 @@ public class ArticleContentValues extends AbstractContentValues {
         return this;
     }
 
-    public ArticleContentValues putCategoryId(@Nullable Integer value) {
+    public ArticleContentValues putCategoryId(@Nullable Long value) {
         mContentValues.put(ArticleColumns.CATEGORY_ID, value);
         return this;
     }

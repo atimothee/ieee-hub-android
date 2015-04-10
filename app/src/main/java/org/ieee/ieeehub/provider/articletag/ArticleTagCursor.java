@@ -73,8 +73,8 @@ public class ArticleTagCursor extends AbstractCursor implements ArticleTagModel 
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getArticleCategoryId() {
-        Integer res = getIntegerOrNull(ArticleColumns.CATEGORY_ID);
+    public Long getArticleCategoryId() {
+        Long res = getLongOrNull(ArticleColumns.CATEGORY_ID);
         return res;
     }
 

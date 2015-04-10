@@ -179,32 +179,32 @@ public class ArticleImageSelection extends AbstractSelection<ArticleImageSelecti
         return this;
     }
 
-    public ArticleImageSelection articleCategoryId(Integer... value) {
+    public ArticleImageSelection articleCategoryId(Long... value) {
         addEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection articleCategoryIdNot(Integer... value) {
+    public ArticleImageSelection articleCategoryIdNot(Long... value) {
         addNotEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection articleCategoryIdGt(int value) {
+    public ArticleImageSelection articleCategoryIdGt(long value) {
         addGreaterThan(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection articleCategoryIdGtEq(int value) {
+    public ArticleImageSelection articleCategoryIdGtEq(long value) {
         addGreaterThanOrEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection articleCategoryIdLt(int value) {
+    public ArticleImageSelection articleCategoryIdLt(long value) {
         addLessThan(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
 
-    public ArticleImageSelection articleCategoryIdLtEq(int value) {
+    public ArticleImageSelection articleCategoryIdLtEq(long value) {
         addLessThanOrEquals(ArticleColumns.CATEGORY_ID, value);
         return this;
     }
