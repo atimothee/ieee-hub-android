@@ -1,12 +1,15 @@
 package org.ieee.ieeehub.fragment;
 
 import android.app.Activity;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -51,13 +54,19 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
             R.id.conference_item_description};
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(1, null, this);
+    }
+
+    @Override
     public Loader onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), ConferenceColumns.CONTENT_URI, null, null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader loader, Object data) {
-
+        mAdapter.swapCursor((Cursor) data);
     }
 
     @Override
