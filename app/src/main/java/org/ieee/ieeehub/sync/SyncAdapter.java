@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.SyncResult;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.appspot.ieee_hub.ieeehub.Ieeehub;
 import com.appspot.ieee_hub.ieeehub.model.ApiApiEndpointsArticleCollectionMessage;
@@ -81,7 +82,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         Ieeehub.Builder builder = new Ieeehub.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
         Ieeehub service = builder.build();
+        Log.d("sync", "sync adapter called");
         if (extras.getString("type") == "article") {
+            Log.d("sync", "sync article called");
 
 
             try {

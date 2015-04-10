@@ -122,6 +122,7 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
         bundle.putString("type", "conference");
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        ContentResolver.setSyncAutomatically(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, true);
         ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
 
         mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conference_list_item, mCursor, COLUMNS, VIEW_IDS, 0);
