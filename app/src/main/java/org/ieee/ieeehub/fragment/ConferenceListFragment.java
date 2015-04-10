@@ -1,6 +1,7 @@
 package org.ieee.ieeehub.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -10,11 +11,13 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
+import org.ieee.ieeehub.ConferenceDetailActivity;
 import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
@@ -30,7 +33,9 @@ import org.ieee.ieeehub.provider.conference.ConferenceColumns;
  */
 public class ConferenceListFragment extends ListFragment implements LoaderManager.LoaderCallbacks {
     public static final String TAG = ConferenceListFragment.class.getSimpleName();
+    private static final int CONFERENCES_LOADER = 2;
     private SimpleCursorAdapter mAdapter;
+    private Cursor mCursor;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -56,7 +61,7 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(1, null, this);
+        getLoaderManager().initLoader(CONFERENCES_LOADER, null, this);
         getListView().setDivider(null);
     }
 
@@ -67,7 +72,8 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
 
     @Override
     public void onLoadFinished(Loader loader, Object data) {
-        mAdapter.swapCursor((Cursor) data);
+        mCursor = (Cursor) data;
+        mAdapter.swapCursor(mCursor);
     }
 
     @Override
@@ -84,7 +90,7 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(Long id);
     }
 
     /**
@@ -93,7 +99,7 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(Long id) {
         }
     };
 
@@ -108,7 +114,7 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conference_list_item, null, COLUMNS, VIEW_IDS, 0);
+        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conference_list_item, mCursor, COLUMNS, VIEW_IDS, 0);
         setListAdapter(mAdapter);
     }
 
@@ -149,7 +155,8 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCursor.moveToPosition(position);
+        mCallbacks.onItemSelected(mCursor.getLong(mCursor.getColumnIndex(ConferenceColumns._ID)));
     }
 
     @Override

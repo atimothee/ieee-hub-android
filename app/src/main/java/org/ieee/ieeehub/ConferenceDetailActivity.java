@@ -40,13 +40,8 @@ public class ConferenceDetailActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(ConferenceDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ConferenceDetailFragment.ARG_ITEM_ID));
-            ConferenceDetailFragment fragment = new ConferenceDetailFragment();
-            fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.conference_detail_container, fragment)
+                    .add(R.id.conference_detail_container, ConferenceDetailFragment.newInstance(getIntent().getLongExtra(ConferenceDetailFragment.ARG_ITEM_ID, 0)))
                     .commit();
         }
     }

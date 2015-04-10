@@ -25,6 +25,7 @@ import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
 import org.ieee.ieeehub.provider.article.ArticleSelection;
+import org.ieee.ieeehub.provider.category.CategoryColumns;
 
 /**
  * A fragment representing a list of Items.
@@ -38,6 +39,7 @@ import org.ieee.ieeehub.provider.article.ArticleSelection;
 public class ArticleFragment extends Fragment implements AbsListView.OnItemClickListener, LoaderManager.LoaderCallbacks {
 
     public static final String TAG = ArticleFragment.class.getSimpleName();
+    private static final int ARTICLE_LOADER = 1;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "category_id";
@@ -62,6 +64,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
      * Views.
      */
     private SimpleCursorAdapter mAdapter;
+    private Cursor mCursor;
 
     // TODO: Rename and change types of parameters
     public static ArticleFragment newInstance(Long param1) {
@@ -83,7 +86,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(0, getArguments(), this);
+        getLoaderManager().initLoader(ARTICLE_LOADER, getArguments(), this);
     }
 
     @Override
@@ -95,7 +98,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.article_item, null, COLUMNS, VIEW_IDS, 0);
+        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.article_item, mCursor, COLUMNS, VIEW_IDS, 0);
         mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int i) {
@@ -146,7 +149,12 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mCursor.moveToPosition(position);
+            Log.d(TAG, "article id " + mCursor.getLong(mCursor.getColumnIndex(ArticleColumns._ID)));
+            Log.d(TAG, "category id " + mCursor.getLong(mCursor.getColumnIndex(ArticleColumns.CATEGORY_ID)));
+            Log.d(TAG, "article title "+mCursor.getString(mCursor.getColumnIndex(ArticleColumns.TITLE)));
+            Log.d(TAG, "cursor "+mCursor.toString());
+            mListener.onFragmentInteraction(mCursor.getLong(mCursor.getColumnIndex(ArticleColumns._ID)));
         }
     }
 
@@ -167,12 +175,13 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     public Loader onCreateLoader(int id, Bundle args) {
         ArticleSelection articleSelection = new ArticleSelection();
         articleSelection.categoryId((args.getLong(ARG_PARAM1)));
-        return new CursorLoader(getActivity(), ArticleColumns.CONTENT_URI, null, articleSelection.sel(), articleSelection.args(), null);
+        return new CursorLoader(getActivity(), ArticleColumns.CONTENT_URI, ArticleColumns.ALL_COLUMNS, articleSelection.sel(), articleSelection.args(), null);
     }
 
     @Override
     public void onLoadFinished(Loader loader, Object data) {
-        mAdapter.swapCursor((Cursor)data);
+        mCursor = (Cursor)data;
+        mAdapter.swapCursor(mCursor);
     }
 
     @Override
@@ -191,8 +200,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onFragmentInteraction(Long id);
     }
 
 }

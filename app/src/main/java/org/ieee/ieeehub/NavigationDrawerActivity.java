@@ -1,5 +1,6 @@
 package org.ieee.ieeehub;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -24,16 +25,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.ieee.ieeehub.fragment.ArticleDetailFragment;
 import org.ieee.ieeehub.fragment.ArticleFragment;
+import org.ieee.ieeehub.fragment.ConferenceDetailFragment;
 import org.ieee.ieeehub.fragment.ConferenceListFragment;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
-
-import java.util.Locale;
 
 
 public class NavigationDrawerActivity extends ActionBarActivity implements ArticleFragment.OnFragmentInteractionListener, ActionBar.TabListener , LoaderManager.LoaderCallbacks, ConferenceListFragment.Callbacks{
 
     private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
+    private static final int CATEG0RIES_LOADER = 0;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -53,7 +55,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
-        getSupportLoaderManager().initLoader(0, savedInstanceState, this);
+        getSupportLoaderManager().initLoader(CATEG0RIES_LOADER, savedInstanceState, this);
         setContentView(R.layout.activity_navigation_drawer);
         mViewPager = (ViewPager)findViewById(R.id.pager);
 
@@ -138,7 +140,10 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
+    public void onFragmentInteraction(Long id) {
+        Intent i = new Intent(this, ArticleDetailActivity.class);
+        i.putExtra(ArticleDetailFragment.ARG_ITEM_ID, id);
+        startActivity(i);
 
     }
 
@@ -163,7 +168,10 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     }
 
     @Override
-    public void onItemSelected(String id) {
+    public void onItemSelected(Long id) {
+        Intent i = new Intent(this, ConferenceDetailActivity.class);
+        i.putExtra(ConferenceDetailFragment.ARG_ITEM_ID, id);
+        startActivity(i);
 
     }
 
