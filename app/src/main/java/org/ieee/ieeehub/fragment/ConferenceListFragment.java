@@ -1,6 +1,7 @@
 package org.ieee.ieeehub.fragment;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 
 
@@ -24,23 +26,17 @@ import org.ieee.ieeehub.ConferenceDetailActivity;
 import org.ieee.ieeehub.ConferenceSearchActivity;
 import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
+import org.ieee.ieeehub.helper.AccountHelper;
+import org.ieee.ieeehub.provider.IEEEHubProvider;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 
-/**
- * A list fragment representing a list of Conferences. This fragment
- * also supports tablet devices by allowing list items to be given an
- * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link ConferenceDetailFragment}.
- * <p/>
- * Activities containing this fragment MUST implement the {@link Callbacks}
- * interface.
- */
 public class ConferenceListFragment extends Fragment implements LoaderManager.LoaderCallbacks {
     public static final String TAG = ConferenceListFragment.class.getSimpleName();
     private static final int CONFERENCES_LOADER = 2;
     private SimpleCursorAdapter mAdapter;
     private Cursor mCursor;
     private ListView mListView;
+    private ProgressBar mProgressBar;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -78,6 +74,10 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
     public void onLoadFinished(Loader loader, Object data) {
         mCursor = (Cursor) data;
         mAdapter.swapCursor(mCursor);
+        if(mCursor.getCount()!=0){
+            mListView.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -117,6 +117,12 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AccountHelper accountHelper = new AccountHelper(getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putString("type", "conference");
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
 
         mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conference_list_item, mCursor, COLUMNS, VIEW_IDS, 0);
 
@@ -126,6 +132,7 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_conference_list, null, true);
         mListView = (ListView)rootView.findViewById(R.id.conference_list);
+        mProgressBar = (ProgressBar)rootView.findViewById(R.id.progress_bar);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,13 +143,13 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
         });
         FloatingActionButton fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
        fab.attachToListView(mListView);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getActivity(), ConferenceSearchActivity.class);
-//                startActivity(i);
-//            }
-//        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ConferenceSearchActivity.class);
+                startActivity(i);
+            }
+        });
 
         return rootView;
     }

@@ -61,6 +61,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        bundle.putString("type", "article");
         ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
         getSupportLoaderManager().initLoader(CATEG0RIES_LOADER, savedInstanceState, this);

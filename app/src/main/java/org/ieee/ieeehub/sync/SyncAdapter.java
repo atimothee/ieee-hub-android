@@ -80,81 +80,87 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
 
         Ieeehub.Builder builder = new Ieeehub.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
-        Ieeehub  service = builder.build();
-        try {
-            ApiApiEndpointsCategoryCollectionMessage categoryCollectionMessage = service.categories().list().execute();
-            List<ContentValues> contentValuesList = new ArrayList<>();
-            ContentValues contentValues = null;
-            for(ApiApiEndpointsCategoryMessage category: categoryCollectionMessage.getItems()){
-                contentValues = new ContentValues();
-                contentValues.put(CategoryColumns._ID, category.getId());
-                contentValues.put(CategoryColumns.NAME, category.getName());
-                contentValues.put(CategoryColumns.COLOR, category.getColor());
-                contentValuesList.add(contentValues);
-            }
-            mContentResolver.bulkInsert(CategoryColumns.CONTENT_URI, contentValuesList.toArray(new ContentValues[contentValuesList.size()]));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            ApiApiEndpointsArticleCollectionMessage articleCollectionMessage = service.articles().articlesList().execute();
-            for(ApiApiEndpointsArticleMessage article: articleCollectionMessage.getItems()){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(ArticleColumns._ID, article.getId());
-                contentValues.put(ArticleColumns.TITLE, article.getTitle());
-                contentValues.put(ArticleColumns.TEXT, article.getText());
-                contentValues.put(ArticleColumns.CATEGORY_ID, article.getCategoryId());
-                contentValues.put(ArticleColumns.LINK, article.getLink());
-                contentValues.put(ArticleColumns.PUB_DATE, article.getPubDate().getValue());
-                contentValues.put(ArticleColumns.IMAGE, article.getImageUrls().get(0));
-                Uri uri = mContentResolver.insert(ArticleColumns.CONTENT_URI, contentValues);
+        Ieeehub service = builder.build();
+        if (extras.getString("type") == "article") {
 
-                for(String url: article.getImageUrls()){
-                    ArticleImageContentValues imageContentValues = new ArticleImageContentValues();
-                    imageContentValues.putUrl(url);
-                    imageContentValues.putArticleId(Long.valueOf(uri.getPathSegments().get(1)));
-                    imageContentValues.insert(mContentResolver);
-                }
-                for(String tag: article.getTags()){
-                    ArticleTagContentValues tagContentValues = new ArticleTagContentValues();
-                    tagContentValues.putName(tag);
-                    tagContentValues.putArticleId(Long.valueOf(uri.getPathSegments().get(1)));
-                    tagContentValues.insert(mContentResolver);
-                }
-            }} catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            ApiApiEndpointsConferenceCollectionMessage conferenceCollectionMessage = service.conferences().conferencesList().execute();
-            ContentValues contentValues = null;
-            List<ContentValues> contentValuesList = new ArrayList<>();
-            for(ApiApiEndpointsConferenceMessage conference: conferenceCollectionMessage.getItems()){
-                contentValues = new ContentValues();
-                contentValues.put(ConferenceColumns._ID, conference.getId());
-                contentValues.put(ConferenceColumns.TITLE, conference.getTitle());
-                contentValues.put(ConferenceColumns.ATTENDANCE, conference.getAttendance());
-                contentValues.put(ConferenceColumns.NUMBER, conference.getNumber());
-                contentValues.put(ConferenceColumns.CONTACT, conference.getContact());
-                contentValues.put(ConferenceColumns.DESCRIPTION, conference.getDescription());
-                contentValues.put(ConferenceColumns.DISPLAY_DATE, conference.getDates());
-                contentValues.put(ConferenceColumns.START_DATE, conference.getStartDate().getValue());
-                contentValues.put(ConferenceColumns.END_DATE, conference.getEndDate().getValue());
-                contentValues.put(ConferenceColumns.LOCATION, conference.getLocation());
-                contentValues.put(ConferenceColumns.LINK, conference.getLink());
-                contentValues.put(ConferenceColumns.WEBSITE, conference.getWebsite());
-                contentValues.put(ConferenceColumns.REGION, conference.getRegion());
-                contentValues.put(ConferenceColumns.CALL_URL, conference.getCallForPapersUrl());
-                Uri uri = mContentResolver.insert(ConferenceColumns.CONTENT_URI, contentValues);
-                for(String sponsor: conference.getSponsors()) {
-                    ConferenceSponsorContentValues conferenceSponsorContentValues = new ConferenceSponsorContentValues();
-                    conferenceSponsorContentValues.putConferenceId(Long.valueOf(uri.getPathSegments().get(1)));
-                    conferenceSponsorContentValues.putName(sponsor);
-                    conferenceSponsorContentValues.insert(mContentResolver);
-                }
 
+            try {
+                ApiApiEndpointsCategoryCollectionMessage categoryCollectionMessage = service.categories().list().execute();
+                List<ContentValues> contentValuesList = new ArrayList<>();
+                ContentValues contentValues = null;
+                for (ApiApiEndpointsCategoryMessage category : categoryCollectionMessage.getItems()) {
+                    contentValues = new ContentValues();
+                    contentValues.put(CategoryColumns._ID, category.getId());
+                    contentValues.put(CategoryColumns.NAME, category.getName());
+                    contentValues.put(CategoryColumns.COLOR, category.getColor());
+                    contentValuesList.add(contentValues);
+                }
+                mContentResolver.bulkInsert(CategoryColumns.CONTENT_URI, contentValuesList.toArray(new ContentValues[contentValuesList.size()]));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                ApiApiEndpointsArticleCollectionMessage articleCollectionMessage = service.articles().articlesList().execute();
+                for (ApiApiEndpointsArticleMessage article : articleCollectionMessage.getItems()) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(ArticleColumns._ID, article.getId());
+                    contentValues.put(ArticleColumns.TITLE, article.getTitle());
+                    contentValues.put(ArticleColumns.TEXT, article.getText());
+                    contentValues.put(ArticleColumns.CATEGORY_ID, article.getCategoryId());
+                    contentValues.put(ArticleColumns.LINK, article.getLink());
+                    contentValues.put(ArticleColumns.PUB_DATE, article.getPubDate().getValue());
+                    contentValues.put(ArticleColumns.IMAGE, article.getImageUrls().get(0));
+                    Uri uri = mContentResolver.insert(ArticleColumns.CONTENT_URI, contentValues);
+
+                    for (String url : article.getImageUrls()) {
+                        ArticleImageContentValues imageContentValues = new ArticleImageContentValues();
+                        imageContentValues.putUrl(url);
+                        imageContentValues.putArticleId(Long.valueOf(uri.getPathSegments().get(1)));
+                        imageContentValues.insert(mContentResolver);
+                    }
+                    for (String tag : article.getTags()) {
+                        ArticleTagContentValues tagContentValues = new ArticleTagContentValues();
+                        tagContentValues.putName(tag);
+                        tagContentValues.putArticleId(Long.valueOf(uri.getPathSegments().get(1)));
+                        tagContentValues.insert(mContentResolver);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (extras.getString("type") == "conference") {
+            try {
+                ApiApiEndpointsConferenceCollectionMessage conferenceCollectionMessage = service.conferences().conferencesList().execute();
+                ContentValues contentValues = null;
+                List<ContentValues> contentValuesList = new ArrayList<>();
+                for (ApiApiEndpointsConferenceMessage conference : conferenceCollectionMessage.getItems()) {
+                    contentValues = new ContentValues();
+                    contentValues.put(ConferenceColumns._ID, conference.getId());
+                    contentValues.put(ConferenceColumns.TITLE, conference.getTitle());
+                    contentValues.put(ConferenceColumns.ATTENDANCE, conference.getAttendance());
+                    contentValues.put(ConferenceColumns.NUMBER, conference.getNumber());
+                    contentValues.put(ConferenceColumns.CONTACT, conference.getContact());
+                    contentValues.put(ConferenceColumns.DESCRIPTION, conference.getDescription());
+                    contentValues.put(ConferenceColumns.DISPLAY_DATE, conference.getDates());
+                    contentValues.put(ConferenceColumns.START_DATE, conference.getStartDate().getValue());
+                    contentValues.put(ConferenceColumns.END_DATE, conference.getEndDate().getValue());
+                    contentValues.put(ConferenceColumns.LOCATION, conference.getLocation());
+                    contentValues.put(ConferenceColumns.LINK, conference.getLink());
+                    contentValues.put(ConferenceColumns.WEBSITE, conference.getWebsite());
+                    contentValues.put(ConferenceColumns.REGION, conference.getRegion());
+                    contentValues.put(ConferenceColumns.CALL_URL, conference.getCallForPapersUrl());
+                    Uri uri = mContentResolver.insert(ConferenceColumns.CONTENT_URI, contentValues);
+                    for (String sponsor : conference.getSponsors()) {
+                        ConferenceSponsorContentValues conferenceSponsorContentValues = new ConferenceSponsorContentValues();
+                        conferenceSponsorContentValues.putConferenceId(Long.valueOf(uri.getPathSegments().get(1)));
+                        conferenceSponsorContentValues.putName(sponsor);
+                        conferenceSponsorContentValues.insert(mContentResolver);
+                    }
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

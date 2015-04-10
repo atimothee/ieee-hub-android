@@ -25,18 +25,10 @@ import java.util.Date;
 
 
 public class ConferenceDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks{
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
+
     public static final String ARG_ITEM_ID = "item_id";
     private static final int CONFERENCE_LOADER = 5;
     private static final int CONFERENCE_SPONSORS_LOADER = 6;
-
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
     private TextView mTitleTextView;
     private TextView mDescriptionTextView;
     private TextView mStartDateTextView;
@@ -77,12 +69,6 @@ public class ConferenceDetailFragment extends Fragment implements LoaderManager.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-        }
     }
 
     @Override

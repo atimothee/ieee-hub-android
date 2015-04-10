@@ -15,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -38,14 +39,8 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
 
     public static final String TAG = ArticlesFragment.class.getSimpleName();
     private static final int ARTICLE_LOADER = 1;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "category_id";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private Long mParam1;
-    private String mParam2;
 
     private String[] COLUMNS = {ArticleColumns.TITLE, ArticleColumns.IMAGE};
     private int[] VIEW_IDS = {R.id.article_item_title, R.id.article_item_image};
@@ -63,13 +58,12 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
      */
     private SimpleCursorAdapter mAdapter;
     private Cursor mCursor;
+    private ProgressBar mProgressBar;
 
-    // TODO: Rename and change types of parameters
     public static ArticlesFragment newInstance(Long param1) {
         ArticlesFragment fragment = new ArticlesFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_PARAM1, param1);
-        Log.d(TAG, "param1 "+param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -93,7 +87,6 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
 
         if (getArguments() != null) {
             mParam1 = getArguments().getLong(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
         mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.article_item, mCursor, COLUMNS, VIEW_IDS, 0);
@@ -120,6 +113,7 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
+        mProgressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
 
         return view;
     }
@@ -148,10 +142,6 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
             mCursor.moveToPosition(position);
-            Log.d(TAG, "article id " + mCursor.getLong(mCursor.getColumnIndex(ArticleColumns._ID)));
-            Log.d(TAG, "category id " + mCursor.getLong(mCursor.getColumnIndex(ArticleColumns.CATEGORY_ID)));
-            Log.d(TAG, "article title "+mCursor.getString(mCursor.getColumnIndex(ArticleColumns.TITLE)));
-            Log.d(TAG, "cursor "+mCursor.toString());
             mListener.onFragmentInteraction(mCursor.getLong(mCursor.getColumnIndex(ArticleColumns._ID)));
         }
     }
@@ -180,6 +170,10 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
     public void onLoadFinished(Loader loader, Object data) {
         mCursor = (Cursor)data;
         mAdapter.swapCursor(mCursor);
+        if(mCursor.getCount()!=0){
+            mListView.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
