@@ -9,7 +9,10 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
@@ -24,8 +27,10 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     public static final String ARG_ITEM_ID = "item_id";
     private static final int ARTICLE_LOADER = 4;
     private Cursor mCursor;
+    private ImageView imageView;
     private TextView titleTextView;
     private TextView textTextView;
+    private TextView linkTextView;
 
     public ArticleDetailFragment() {
     }
@@ -50,6 +55,8 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
         View rootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
         titleTextView = (TextView)rootView.findViewById(R.id.article_detail_title);
         textTextView = (TextView)rootView.findViewById(R.id.article_detail_text);
+        linkTextView = (TextView)rootView.findViewById(R.id.article_detail_link);
+        imageView = (ImageView)rootView.findViewById(R.id.article_detail_image);
         return rootView;
     }
 
@@ -64,8 +71,11 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     public void onLoadFinished(Loader loader, Object data) {
         mCursor = (Cursor)data;
         mCursor.moveToFirst();
+        getActivity().setTitle(mCursor.getString(mCursor.getColumnIndex(ArticleColumns.TITLE)));
         titleTextView.setText(mCursor.getString(mCursor.getColumnIndex(ArticleColumns.TITLE)));
         textTextView.setText(mCursor.getString(mCursor.getColumnIndex(ArticleColumns.TEXT)));
+        linkTextView.setText(mCursor.getString(mCursor.getColumnIndex(ArticleColumns.LINK)));
+        Picasso.with(getActivity()).load("http://spectrum.ieee.org"+mCursor.getString(mCursor.getColumnIndex(ArticleColumns.IMAGE))).into(imageView);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package org.ieee.ieeehub;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -26,13 +27,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.ieee.ieeehub.fragment.ArticleDetailFragment;
-import org.ieee.ieeehub.fragment.ArticleFragment;
+import org.ieee.ieeehub.fragment.ArticlesFragment;
 import org.ieee.ieeehub.fragment.ConferenceDetailFragment;
 import org.ieee.ieeehub.fragment.ConferenceListFragment;
+import org.ieee.ieeehub.helper.AccountHelper;
+import org.ieee.ieeehub.provider.IEEEHubProvider;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 
 
-public class NavigationDrawerActivity extends ActionBarActivity implements ArticleFragment.OnFragmentInteractionListener, ActionBar.TabListener , LoaderManager.LoaderCallbacks, ConferenceListFragment.Callbacks{
+public class NavigationDrawerActivity extends ActionBarActivity implements ArticlesFragment.OnFragmentInteractionListener, ActionBar.TabListener , LoaderManager.LoaderCallbacks, ConferenceListFragment.Callbacks{
 
     private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
     private static final int CATEG0RIES_LOADER = 0;
@@ -54,6 +57,11 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AccountHelper accountHelper = new AccountHelper(this);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
         getSupportLoaderManager().initLoader(CATEG0RIES_LOADER, savedInstanceState, this);
         setContentView(R.layout.activity_navigation_drawer);
@@ -275,14 +283,13 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if(mCursor.move(position)) {
-                return ArticleFragment.newInstance(mCursor.getLong(mCursor.getColumnIndex(CategoryColumns._ID)));
+                return ArticlesFragment.newInstance(mCursor.getLong(mCursor.getColumnIndex(CategoryColumns._ID)));
             }
-           return ArticleFragment.newInstance(Long.valueOf(1));
+           return ArticlesFragment.newInstance(Long.valueOf(1));
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             if(mCursor !=null) {
                 return mCursor.getCount();
             }else {
@@ -304,7 +311,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
         @Override
         public Fragment getItem(int position) {
-            Log.d(TAG, "conference frag set");
             return new ConferenceListFragment();
         }
 

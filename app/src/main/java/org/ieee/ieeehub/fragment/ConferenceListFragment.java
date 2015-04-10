@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -17,7 +18,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
+import com.melnykov.fab.FloatingActionButton;
+
 import org.ieee.ieeehub.ConferenceDetailActivity;
+import org.ieee.ieeehub.ConferenceSearchActivity;
 import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
@@ -31,11 +35,12 @@ import org.ieee.ieeehub.provider.conference.ConferenceColumns;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class ConferenceListFragment extends ListFragment implements LoaderManager.LoaderCallbacks {
+public class ConferenceListFragment extends Fragment implements LoaderManager.LoaderCallbacks {
     public static final String TAG = ConferenceListFragment.class.getSimpleName();
     private static final int CONFERENCES_LOADER = 2;
     private SimpleCursorAdapter mAdapter;
     private Cursor mCursor;
+    private ListView mListView;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -62,7 +67,6 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(CONFERENCES_LOADER, null, this);
-        getListView().setDivider(null);
     }
 
     @Override
@@ -115,18 +119,32 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
         super.onCreate(savedInstanceState);
 
         mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conference_list_item, mCursor, COLUMNS, VIEW_IDS, 0);
-        setListAdapter(mAdapter);
+
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_conference_list, null, true);
+        mListView = (ListView)rootView.findViewById(R.id.conference_list);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                mCursor.moveToPosition(position);
+                mCallbacks.onItemSelected(mCursor.getLong(mCursor.getColumnIndex(ConferenceColumns._ID)));
+            }
+        });
+        FloatingActionButton fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+       fab.attachToListView(mListView);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getActivity(), ConferenceSearchActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
-        // Restore the previously serialized activated item position.
-        if (savedInstanceState != null
-                && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-            setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
-        }
+        return rootView;
     }
 
     @Override
@@ -150,16 +168,6 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
     }
 
     @Override
-    public void onListItemClick(ListView listView, View view, int position, long id) {
-        super.onListItemClick(listView, view, position, id);
-
-        // Notify the active callbacks interface (the activity, if the
-        // fragment is attached to one) that an item has been selected.
-        mCursor.moveToPosition(position);
-        mCallbacks.onItemSelected(mCursor.getLong(mCursor.getColumnIndex(ConferenceColumns._ID)));
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mActivatedPosition != ListView.INVALID_POSITION) {
@@ -168,25 +176,4 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
         }
     }
 
-    /**
-     * Turns on activate-on-click mode. When this mode is on, list items will be
-     * given the 'activated' state when touched.
-     */
-    public void setActivateOnItemClick(boolean activateOnItemClick) {
-        // When setting CHOICE_MODE_SINGLE, ListView will automatically
-        // give items the 'activated' state when touched.
-        getListView().setChoiceMode(activateOnItemClick
-                ? ListView.CHOICE_MODE_SINGLE
-                : ListView.CHOICE_MODE_NONE);
-    }
-
-    private void setActivatedPosition(int position) {
-        if (position == ListView.INVALID_POSITION) {
-            getListView().setItemChecked(mActivatedPosition, false);
-        } else {
-            getListView().setItemChecked(position, true);
-        }
-
-        mActivatedPosition = position;
-    }
 }

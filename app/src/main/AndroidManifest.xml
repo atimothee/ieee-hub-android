@@ -40,10 +40,6 @@
         </service>
 
         <activity
-            android:name=".ConferenceListActivity"
-            android:label="@string/title_conference_list" >
-        </activity>
-        <activity
             android:name=".ConferenceDetailActivity"
             android:label="@string/title_conference_detail"
             android:parentActivityName=".ConferenceListActivity" >
@@ -63,6 +59,10 @@
         <activity
             android:name=".ArticleDetailActivity"
             android:label="@string/title_activity_article_detail" >
+        </activity>
+        <activity
+            android:name=".ConferenceSearchActivity"
+            android:label="@string/title_activity_conference_search" >
         </activity>
     </application>
 

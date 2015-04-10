@@ -22,10 +22,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.ieee.ieeehub.R;
-import org.ieee.ieeehub.dummy.DummyContent;
 import org.ieee.ieeehub.provider.article.ArticleColumns;
 import org.ieee.ieeehub.provider.article.ArticleSelection;
-import org.ieee.ieeehub.provider.category.CategoryColumns;
 
 /**
  * A fragment representing a list of Items.
@@ -36,9 +34,9 @@ import org.ieee.ieeehub.provider.category.CategoryColumns;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ArticleFragment extends Fragment implements AbsListView.OnItemClickListener, LoaderManager.LoaderCallbacks {
+public class ArticlesFragment extends Fragment implements AbsListView.OnItemClickListener, LoaderManager.LoaderCallbacks {
 
-    public static final String TAG = ArticleFragment.class.getSimpleName();
+    public static final String TAG = ArticlesFragment.class.getSimpleName();
     private static final int ARTICLE_LOADER = 1;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,8 +65,8 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
     private Cursor mCursor;
 
     // TODO: Rename and change types of parameters
-    public static ArticleFragment newInstance(Long param1) {
-        ArticleFragment fragment = new ArticleFragment();
+    public static ArticlesFragment newInstance(Long param1) {
+        ArticlesFragment fragment = new ArticlesFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_PARAM1, param1);
         Log.d(TAG, "param1 "+param1);
@@ -80,7 +78,7 @@ public class ArticleFragment extends Fragment implements AbsListView.OnItemClick
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ArticleFragment() {
+    public ArticlesFragment() {
     }
 
     @Override
