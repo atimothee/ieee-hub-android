@@ -101,6 +101,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         // when the app opens for the first time
         if(savedInstanceState == null) {
             navigateTo(0);
+            Log.d(TAG, "navigated to zero");
         }
 
     }
@@ -151,6 +152,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         Cursor cursor = (Cursor) data;
         cursor.moveToFirst();
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), (Cursor)data);
+        Log.d(TAG, "cursor loaded");
+        navigateTo(0);
     }
 
     @Override
