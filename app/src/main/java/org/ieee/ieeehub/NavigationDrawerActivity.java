@@ -154,6 +154,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), (Cursor)data);
         Log.d(TAG, "cursor loaded");
         navigateTo(0);
+        setTitle("Spectrum");
     }
 
     @Override
