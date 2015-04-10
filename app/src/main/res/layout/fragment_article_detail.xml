@@ -27,20 +27,12 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
         android:id="@+id/article_detail_text"/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/article_detail_link"/>
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_action_share"
-        fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/primary" />
 
 </LinearLayout>
 </ScrollView>
