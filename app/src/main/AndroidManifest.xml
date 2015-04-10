@@ -40,10 +40,6 @@
         </service>
 
         <activity
-            android:name=".BrowseArticles"
-            android:label="@string/title_activity_browse_articles" >
-        </activity>
-        <activity
             android:name=".ConferenceListActivity"
             android:label="@string/title_conference_list" >
         </activity>
@@ -58,15 +54,6 @@
         <activity
             android:name=".NavigationDrawerActivity"
             android:label="@string/title_activity_navigation_drawer" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
