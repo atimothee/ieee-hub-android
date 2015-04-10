@@ -6,6 +6,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -24,12 +25,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.ieee.ieeehub.fragment.ArticleFragment;
+import org.ieee.ieeehub.fragment.ConferenceListFragment;
 import org.ieee.ieeehub.provider.category.CategoryColumns;
 
 import java.util.Locale;
 
 
-public class NavigationDrawerActivity extends ActionBarActivity implements ArticleFragment.OnFragmentInteractionListener, ActionBar.TabListener , LoaderManager.LoaderCallbacks{
+public class NavigationDrawerActivity extends ActionBarActivity implements ArticleFragment.OnFragmentInteractionListener, ActionBar.TabListener , LoaderManager.LoaderCallbacks, ConferenceListFragment.Callbacks{
 
     private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
 
@@ -53,6 +55,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
         getSupportLoaderManager().initLoader(0, savedInstanceState, this);
         setContentView(R.layout.activity_navigation_drawer);
+        mViewPager = (ViewPager)findViewById(R.id.pager);
+
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -97,40 +101,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         // when the app opens for the first time
         if(savedInstanceState == null) {
             navigateTo(0);
-        }
-
-        // Set up the action bar.
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // a reference to the Tab.
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by
-            // the adapter. Also specify this Activity object, which implements
-            // the TabListener interface, as the callback (listener) for when
-            // this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
         }
 
     }
@@ -181,22 +151,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         Cursor cursor = (Cursor) data;
         cursor.moveToFirst();
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), (Cursor)data);
-        Log.d(TAG, "cursor size "+cursor.getLong(cursor.getColumnIndex(CategoryColumns._ID)));
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by
-            // the adapter. Also specify this Activity object, which implements
-            // the TabListener interface, as the callback (listener) for when
-            // this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
     }
 
     @Override
@@ -204,28 +158,69 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
     }
 
+    @Override
+    public void onItemSelected(String id) {
+
+    }
+
     private class DrawerItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            mTitle =  mDrawerItmes[position];
             navigateTo(position);
         }
     }
 
     private void navigateTo(int position) {
+        mViewPager = (ViewPager)findViewById(R.id.pager);
 
-        switch(position) {
-            case 0:
-//                getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.content_frame, new TabbedFragment(), TabbedFragment.TAG).commit();
-                break;
-            case 1:
-//                getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.content_frame,
-//                                new ConferenceListFragment(),
-//                                ConferenceListFragment.TAG).commit();
-                break;
+        if(position==0){
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+            final ActionBar actionBar = getSupportActionBar();
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+            actionBar.removeAllTabs();
+            mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageSelected(int position) {
+                    actionBar.setSelectedNavigationItem(position);
+                }
+            });
+            for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+                // Create a tab with text corresponding to the page title defined by
+                // the adapter. Also specify this Activity object, which implements
+                // the TabListener interface, as the callback (listener) for when
+                // this tab is selected.
+                actionBar.addTab(
+                        actionBar.newTab()
+                                .setText(mSectionsPagerAdapter.getPageTitle(i))
+                                .setTabListener(this));
+            }
+
+        }else if(position==1){
+
+            ConferencePagerAdapter adapter = new ConferencePagerAdapter(getSupportFragmentManager());
+            mViewPager.setAdapter(adapter);
+                final ActionBar actionBar = getSupportActionBar();
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+            actionBar.removeAllTabs();
+            mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageSelected(int position) {
+                    actionBar.setSelectedNavigationItem(position);
+                }
+            });
+
+
+            for (int i = 0; i < adapter.getCount(); i++) {
+                    // Create a tab with text corresponding to the page title defined by
+                    // the adapter. Also specify this Activity object, which implements
+                    // the TabListener interface, as the callback (listener) for when
+                    // this tab is selected.
+                    actionBar.addTab(
+                            actionBar.newTab()
+                                    .setText(adapter.getPageTitle(i))
+                                    .setTabListener(this));
+                }
         }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
@@ -255,7 +250,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class ArticlePagerAdapter extends FragmentPagerAdapter {
+    public class ArticlePagerAdapter extends FragmentStatePagerAdapter {
         private Cursor mCursor;
 
         public ArticlePagerAdapter(FragmentManager fm, Cursor cursor) {
@@ -286,6 +281,35 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         @Override
         public CharSequence getPageTitle(int position) {
             return mCursor.getString(mCursor.getColumnIndex(CategoryColumns.NAME));
+        }
+    }
+
+    public class ConferencePagerAdapter extends FragmentStatePagerAdapter {
+
+        public ConferencePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Log.d(TAG, "conference frag set");
+            return new ConferenceListFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                case 0:
+                    return "Upcoming";
+                case 1:
+                    return "Favorites";
+            }
+            return "";
         }
     }
 }

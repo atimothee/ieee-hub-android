@@ -19,12 +19,11 @@
     <string name="account_name">IEEE Data</string>
     <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
-    <string name="title_activity_nav">NavActivity</string>
+    <string name="title_activity_navigation_drawer">IEEE Hub</string>
 
     <string-array name="drawer_titles">
-        <item>Tabs</item>
-        <item>WebView</item>
+        <item>Spectrum</item>
+        <item>Conferences</item>
     </string-array>
 
     <string name="drawer_open">Open navigation drawer</string>
