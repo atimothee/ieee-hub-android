@@ -57,6 +57,7 @@ public class ConferenceListFragment extends ListFragment implements LoaderManage
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(1, null, this);
+        getListView().setDivider(null);
     }
 
     @Override
