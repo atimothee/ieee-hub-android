@@ -97,7 +97,7 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
         shareIntent.setType("text/plain");
-        if(mCursor.getCount()!=0) {
+        if(mCursor!=null && mCursor.getCount()!=0) {
             mCursor.moveToFirst();
             shareIntent.putExtra(Intent.EXTRA_TEXT, mShareString + " - " + mCursor.getString(mCursor.getColumnIndex(ArticleColumns.TITLE)) + " " + mCursor.getString(mCursor.getColumnIndex(ArticleColumns.LINK)));
         }

@@ -1,12 +1,19 @@
 package org.ieee.ieeehub.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,6 +21,7 @@ import android.widget.TextView;
 
 import org.ieee.ieeehub.R;
 import org.ieee.ieeehub.dummy.DummyContent;
+import org.ieee.ieeehub.provider.article.ArticleColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceColumns;
 import org.ieee.ieeehub.provider.conference.ConferenceSelection;
 import org.ieee.ieeehub.provider.conferencesponsor.ConferenceSponsorColumns;
@@ -26,6 +34,8 @@ import java.util.Date;
 
 public class ConferenceDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks{
 
+    private static final String TAG = ConferenceDetailFragment.class.getSimpleName();
+    private static final String mShareString = "Check out this IEEE Conference";
     public static final String ARG_ITEM_ID = "item_id";
     private static final int CONFERENCE_LOADER = 5;
     private static final int CONFERENCE_SPONSORS_LOADER = 6;
@@ -55,6 +65,7 @@ public class ConferenceDetailFragment extends Fragment implements LoaderManager.
         bundle.putLong(ARG_ITEM_ID, id);
         ConferenceDetailFragment fragment = new ConferenceDetailFragment();
         fragment.setArguments(bundle);
+        fragment.setHasOptionsMenu(true);
         return fragment;
     }
 
@@ -147,5 +158,28 @@ public class ConferenceDetailFragment extends Fragment implements LoaderManager.
     @Override
     public void onLoaderReset(Loader loader) {
 
+    }
+
+    private Intent createShareIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+        shareIntent.setType("text/plain");
+        if(mCursor!=null && mCursor.getCount()!=0) {
+            mCursor.moveToFirst();
+            shareIntent.putExtra(Intent.EXTRA_TEXT, mShareString + " - " + mCursor.getString(mCursor.getColumnIndex(ConferenceColumns.TITLE)) + " " + mCursor.getString(mCursor.getColumnIndex(ConferenceColumns.LINK)));
+        }
+        return shareIntent;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_conference_detail, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(createShareIntent());
+        } else {
+            Log.d(TAG, "Share action provider is null?");
+        }
     }
 }
