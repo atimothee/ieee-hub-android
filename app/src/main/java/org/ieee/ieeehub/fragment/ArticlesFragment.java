@@ -113,7 +113,7 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
-        mProgressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
+        //mProgressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
 
         return view;
     }
@@ -168,11 +168,13 @@ public class ArticlesFragment extends Fragment implements AbsListView.OnItemClic
 
     @Override
     public void onLoadFinished(Loader loader, Object data) {
-        mCursor = (Cursor)data;
-        mAdapter.swapCursor(mCursor);
-        if(mCursor.getCount()!=0){
-            mListView.setVisibility(View.VISIBLE);
-            mProgressBar.setVisibility(View.GONE);
+        if(loader.getId()==ARTICLE_LOADER) {
+            mCursor = (Cursor) data;
+            mAdapter.swapCursor(mCursor);
+            if (mCursor.getCount() != 0) {
+                mListView.setVisibility(View.VISIBLE);
+                //mProgressBar.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -6,26 +6,28 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     android:orientation="vertical"
     android:background="#fff"
     tools:context="org.ieee.ieeehub.fragment.ArticleDetailFragment">
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
 
         <ImageView
             android:scaleType="centerCrop"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
             android:id="@+id/article_detail_image"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp">
         <TextView
+            android:padding="2dp"
             android:id="@+id/article_detail_title"
             android:layout_width="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
             android:fontFamily="sans-serif-conndensed"/>
-    </RelativeLayout>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -35,6 +37,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/article_detail_link"/>
+    </LinearLayout>
 
 </LinearLayout>
 </ScrollView>

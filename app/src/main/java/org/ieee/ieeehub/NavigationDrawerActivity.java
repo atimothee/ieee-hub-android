@@ -48,6 +48,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     private CharSequence mTitle;
     private String[] mDrawerItmes;
     ArticlePagerAdapter mSectionsPagerAdapter;
+    private Cursor mCursor;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -62,7 +63,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         bundle.putString("type", "article");
-        ContentResolver.setSyncAutomatically(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, true);
+        //ContentResolver.setSyncAutomatically(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, true);
         ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
         getSupportLoaderManager().initLoader(CATEG0RIES_LOADER, savedInstanceState, this);
@@ -164,12 +165,15 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
     @Override
     public void onLoadFinished(Loader loader, Object data) {
-        Cursor cursor = (Cursor) data;
-        cursor.moveToFirst();
-        mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), (Cursor)data);
-        Log.d(TAG, "cursor loaded");
-        navigateTo(0);
-        setTitle("Spectrum");
+        if(loader.getId()==CATEG0RIES_LOADER) {
+            mCursor = (Cursor) data;
+            Cursor cursor = (Cursor) data;
+            cursor.moveToFirst();
+            mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), (Cursor) data);
+            Log.d(TAG, "cursor loaded");
+            navigateTo(0);
+            setTitle("Spectrum");
+        }
     }
 
     @Override
@@ -194,9 +198,10 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
     }
 
     private void navigateTo(int position) {
-        mViewPager = (ViewPager)findViewById(R.id.pager);
+        //mViewPager = (ViewPager)findViewById(R.id.pager);
 
         if(position==0){
+            mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), mCursor);
             mViewPager.setAdapter(mSectionsPagerAdapter);
             final ActionBar actionBar = getSupportActionBar();
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -301,6 +306,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
         @Override
         public CharSequence getPageTitle(int position) {
+            mCursor.moveToPosition(position);
             return mCursor.getString(mCursor.getColumnIndex(CategoryColumns.NAME));
         }
     }

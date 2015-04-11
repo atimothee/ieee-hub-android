@@ -83,7 +83,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Ieeehub.Builder builder = new Ieeehub.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
         Ieeehub service = builder.build();
         Log.d("sync", "sync adapter called");
-        if (extras.getString("type") == "article") {
             Log.d("sync", "sync article called");
 
 
@@ -131,7 +130,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (extras.getString("type") == "conference") {
             try {
                 ApiApiEndpointsConferenceCollectionMessage conferenceCollectionMessage = service.conferences().conferencesList().execute();
                 ContentValues contentValues = null;
@@ -165,5 +163,5 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 e.printStackTrace();
             }
         }
-    }
+
 }

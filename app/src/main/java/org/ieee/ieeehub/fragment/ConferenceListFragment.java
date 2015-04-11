@@ -76,7 +76,7 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
         mAdapter.swapCursor(mCursor);
         if(mCursor.getCount()!=0){
             mListView.setVisibility(View.VISIBLE);
-            mProgressBar.setVisibility(View.GONE);
+            //mProgressBar.setVisibility(View.GONE);
         }
     }
 
@@ -122,7 +122,6 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
         bundle.putString("type", "conference");
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        ContentResolver.setSyncAutomatically(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, true);
         ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
 
         mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conference_list_item, mCursor, COLUMNS, VIEW_IDS, 0);
@@ -133,7 +132,7 @@ public class ConferenceListFragment extends Fragment implements LoaderManager.Lo
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_conference_list, null, true);
         mListView = (ListView)rootView.findViewById(R.id.conference_list);
-        mProgressBar = (ProgressBar)rootView.findViewById(R.id.progress_bar);
+        //mProgressBar = (ProgressBar)rootView.findViewById(R.id.progress_bar);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
