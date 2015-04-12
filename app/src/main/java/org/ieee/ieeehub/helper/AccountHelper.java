@@ -28,13 +28,14 @@ public class AccountHelper {
         AccountManager accountManager =
                 (AccountManager) mContext.getSystemService(
                         mContext.ACCOUNT_SERVICE);
+        Log.d(LOG_TAG, "account is "+newAccount.toString());
 
         if (accountManager.addAccountExplicitly(newAccount, null, null)) {
             return newAccount;
         } else {
             Log.e(LOG_TAG, "Account exists or some other error occured");
         }
-        return null;
+        return newAccount;
 
     }
 }

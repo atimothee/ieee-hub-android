@@ -1,5 +1,6 @@
 package org.ieee.ieeehub;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -62,7 +63,11 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        bundle.putString("type", "article");
+        //bundle.putString("type", "article");
+        Account account = accountHelper.CreateSyncAccount();
+        Log.d(TAG, "account "+account.toString());
+
+        ContentResolver.setSyncAutomatically(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, true);
         ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
         getSupportLoaderManager().initLoader(CATEG0RIES_LOADER, savedInstanceState, this);
