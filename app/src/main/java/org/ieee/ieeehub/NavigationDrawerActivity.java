@@ -63,7 +63,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         bundle.putString("type", "article");
-        //ContentResolver.setSyncAutomatically(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, true);
         ContentResolver.requestSync(accountHelper.CreateSyncAccount(), IEEEHubProvider.AUTHORITY, bundle);
         mSectionsPagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager(), null);
         getSupportLoaderManager().initLoader(CATEG0RIES_LOADER, savedInstanceState, this);
@@ -287,12 +286,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Artic
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            if(mCursor.move(position)) {
-                return ArticlesFragment.newInstance(mCursor.getLong(mCursor.getColumnIndex(CategoryColumns._ID)));
-            }
-           return ArticlesFragment.newInstance(Long.valueOf(1));
+            mCursor.moveToPosition(position);
+            return ArticlesFragment.newInstance(mCursor.getLong(mCursor.getColumnIndex(CategoryColumns._ID)));
         }
 
         @Override

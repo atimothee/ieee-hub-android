@@ -25,7 +25,7 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="title_activity_article_detail">ArticleDetailActivity</string>
-    <string name="title_activity_conference_search">ConferenceSearchActivity</string>
+    <string name="title_activity_article_detail">Article Detail</string>
+    <string name="title_activity_conference_search">Conference Search</string>
 
 </resources>
